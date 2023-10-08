@@ -5,6 +5,8 @@ from cli.cli_definitions import cli_options, cli_map
 from constants import IP, PORT
 from flask_app import flask_app
 from state import state
+from routes import auth, greet
+
 
 if __name__ == "__main__":
 

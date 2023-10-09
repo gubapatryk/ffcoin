@@ -26,6 +26,7 @@ def greet():
       )
     # should we save ips only from sources we already know/trust
     state.peers.add(source_ip)
+  print(out) # debug
   return out
 
 

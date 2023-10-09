@@ -18,6 +18,7 @@ def greet():
   if source_ip not in state.peers:
     # async - I suspect waiting for outcome from entire net will fry processors
     for peer in state.peers:
+      print(f"sending async request to {peer}")
       grequests.post(
         f"http://{peer}:{PORT}/greet",
         headers={

@@ -6,7 +6,7 @@ class State:
   def __init__(self):
     self.private_key = None
     self.public_key = None
-    self.peers = set(INITIAL_TRUSTED_IP)
+    self.peers = {INITIAL_TRUSTED_IP}
 
   def get_public_key_as_bytes(self):
     self.public_key.export_key(PUBLIC_KEY_ENCODING)

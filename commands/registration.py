@@ -20,11 +20,7 @@ def greet_peers(state, peers):
         HTTP_CONSTANTS["SOURCE_IP_HEADER"]: IP
       }
     )
-    print(out.text) # debug
-    js_val = json.dumps(out.text)
-    print(js_val) # debug
-    print(JSON_CONSTANTS["PEERS_KEY"])
-    print(js_val[JSON_CONSTANTS["PEERS_KEY"]])
+    js_val = json.loads(out.text)
     state.peers.union(
       set(js_val[JSON_CONSTANTS["PEERS_KEY"]])
     )

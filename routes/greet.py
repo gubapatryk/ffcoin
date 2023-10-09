@@ -32,5 +32,5 @@ def greet():
 
 def greet_outcome(state):
   return json.dumps({
-    JSON_CONSTANTS["PEERS_KEY"]: state.peers
+    JSON_CONSTANTS["PEERS_KEY"]: list(state.peers)
   })

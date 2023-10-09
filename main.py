@@ -6,6 +6,10 @@ from constants import IP, PORT
 from flask_app import flask_app
 from state import state
 
+# don't remove these imports - users of toy languages don't get that decorators are not macros
+from routes.auth import *
+from routes.greet import *
+
 
 if __name__ == "__main__":
 

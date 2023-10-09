@@ -12,11 +12,11 @@ PUBLIC_KEY_FILE_NAME = "key.pub"
 
 INITIAL_TRUSTED_IP = "192.168.195.30"
 
-IP = "192.168.195.40"
+IP = "localhost"
 PORT = "1939"
 
 HTTP_CONSTANTS = {
-  "SOURCE_IP_HEADER": "source-header"
+  "SOURCE_IP_HEADER": "source"
 }
 
 JSON_CONSTANTS = {

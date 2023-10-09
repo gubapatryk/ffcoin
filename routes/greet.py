@@ -2,7 +2,7 @@ import json
 
 import grequests
 
-from constants import HTTP_CONSTANTS, PORT, JSON_CONSTANTS
+from constants import HTTP_CONSTANTS, PORT, JSON_CONSTANTS, IP
 from flask_app import flask_app
 from flask import request
 
@@ -24,13 +24,14 @@ def greet():
           HTTP_CONSTANTS["SOURCE_IP_HEADER"]: source_ip
         }
       )
-    # should we save ips only from sources we already know/trust
-    state.peers.add(source_ip)
-  print(out) # debug
+  # should we save ips only from sources we already know/trust
+  state.peers.add(source_ip)
   return out
 
 
 def greet_outcome(state):
+  out = state.peers.copy()
+  out.add(IP)
   return json.dumps({
-    JSON_CONSTANTS["PEERS_KEY"]: list(state.peers)
+    JSON_CONSTANTS["PEERS_KEY"]: list(out)
   })

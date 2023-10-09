@@ -1,6 +1,7 @@
 import json
 
 import grequests
+import requests
 
 from constants import HTTP_CONSTANTS, PORT, JSON_CONSTANTS, IP
 from flask_app import flask_app
@@ -19,7 +20,7 @@ def greet():
     # async - I suspect waiting for outcome from entire net will fry processors
     for peer in state.peers:
       print(f"sending async request to {peer}")
-      grequests.post(
+      requests.post( # TODO: make it async
         f"http://{peer}:{PORT}/greet",
         headers={
           HTTP_CONSTANTS["SOURCE_IP_HEADER"]: source_ip

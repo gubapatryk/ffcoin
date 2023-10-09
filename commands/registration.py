@@ -22,4 +22,6 @@ def greet_peers(state, peers):
     )
     print(out.text) # debug
     js_val = json.dumps(out.text)
-    state.peers.union(js_val[JSON_CONSTANTS["PEERS_KEY"]])
+    state.peers.union(
+      set(js_val[JSON_CONSTANTS["PEERS_KEY"]])
+    )

@@ -1,6 +1,6 @@
 import json
 
-import requests
+import grequests
 
 from constants import HTTP_CONSTANTS, PORT, JSON_CONSTANTS
 from flask_app import flask_app

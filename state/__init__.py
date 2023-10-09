@@ -6,7 +6,7 @@ class State:
   def __init__(self):
     self.private_key = None
     self.public_key = None
-    self.peers = {}
+    self.peers = set()
 
   def get_public_key_as_bytes(self):
     self.public_key.export_key(PUBLIC_KEY_ENCODING)

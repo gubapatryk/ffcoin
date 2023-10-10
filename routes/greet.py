@@ -20,13 +20,13 @@ def greet():
   if original_source_ip not in state.peers and direct_source_ip not in state.peers:
     # async - I suspect waiting for outcome from entire net will fry processors
     for peer in state.peers:
-      print(f"sending async request to {peer}")
-      requests.post(  # TODO: make it async
-        f"http://{peer}:{PORT}/greet",
-        headers={
-          HTTP_CONSTANTS["SOURCE_IP_HEADER"]: original_source_ip
-        }
-      )
+      if peer is not IP:
+        requests.post(  # TODO: make it async
+          f"http://{peer}:{PORT}/greet",
+          headers={
+            HTTP_CONSTANTS["SOURCE_IP_HEADER"]: original_source_ip
+          }
+        )
   # should we save ips only from sources we already know/trust
   state.peers.add(original_source_ip)
   return out

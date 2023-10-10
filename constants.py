@@ -10,7 +10,6 @@ LEDGER_PATH = "ledger"
 PRIVATE_KEY_FILE_NAME = "key.pem"
 PUBLIC_KEY_FILE_NAME = "key.pub"
 
-# this should not equal to IP or be refactored
 INITIAL_TRUSTED_IP = "192.168.195.30"
 
 IP = "localhost"

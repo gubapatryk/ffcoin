@@ -21,6 +21,6 @@ def greet_peers(state, peers):
       }
     )
     js_val = json.loads(out.text)
-    state.peers.union(
+    state.peers.update(
       set(js_val[JSON_CONSTANTS["PEERS_KEY"]])
     )

@@ -9,3 +9,7 @@ def b64_encode_bytes(bstr):
 
 def b64_str_to_bytes(str):
   return base64.b64decode(str.encode())
+
+
+def str_to_bytes(str):
+  bytes(str, BYTE_ENCODING)

@@ -10,6 +10,7 @@ class State:
     self.peers = {
       INITIAL_TRUSTED_NAME: INITIAL_TRUSTED_IP
     }
+    self.known_keys = dict()
 
   def get_public_key_as_bytes(self):
     self.public_key.export_key(PUBLIC_KEY_ENCODING)

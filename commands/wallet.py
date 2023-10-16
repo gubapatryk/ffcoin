@@ -1,6 +1,6 @@
-from Crypto.PublicKey import RSA
+from Crypto.PublicKey import RSA, ECC
 from constants import KEY_SIZE, CRYPTO_EXPONENT, PUBLIC_KEY_ENCODING, LEDGER_PATH, PRIVATE_KEY_FILE_NAME, \
-  PUBLIC_KEY_FILE_NAME, PRIVATE_KEY_ENCODING, USER_DATA_FILE_NAME
+  PUBLIC_KEY_FILE_NAME, PRIVATE_KEY_ENCODING, USER_DATA_FILE_NAME, ECC_CURVE, ECC_PROTECTION
 
 
 def set_up_keys(state):
@@ -17,11 +17,11 @@ def save_key(state, passphrase, name):
 
   print("Generating keys...")
 
-  key_pair = RSA.generate(KEY_SIZE, e=CRYPTO_EXPONENT)
+  key_pair = ECC.generate(curve=ECC_CURVE)
 
-  private_key_bytes = key_pair.export_key(PRIVATE_KEY_ENCODING, passphrase)
+  private_key_bytes = key_pair.export_key(format=PRIVATE_KEY_ENCODING, passphrase=passphrase, protection=ECC_PROTECTION)
 
-  public_key_bytes = key_pair.public_key().export_key(PUBLIC_KEY_ENCODING)
+  public_key_bytes = key_pair.public_key().export_key(format=PUBLIC_KEY_ENCODING)
 
   print("Saving keys...")
 
@@ -56,7 +56,7 @@ def load_keys(state):
     print("Loading keys...")
 
     with open(f"{LEDGER_PATH}/{PRIVATE_KEY_FILE_NAME}", 'rb') as f:
-      key_pair = RSA.import_key(f.read(), passphrase)
+      key_pair = ECC.import_key(f.read(), passphrase, ECC_CURVE)
 
     with open(f"{LEDGER_PATH}/{USER_DATA_FILE_NAME}", 'r') as f:
       name = f.read().strip()

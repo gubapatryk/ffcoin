@@ -12,7 +12,7 @@ def register(state):
 
 
 def greet_peers(state, peers):
-  for peer in peers.copy():
+  for peer in list(peers):
     # blocking
     out = requests.post(
       f"http://{peer}:{PORT}/greet",

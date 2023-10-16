@@ -1,10 +1,9 @@
 import json
 
 from Crypto.Hash import SHA256
-from Crypto.PublicKey import ECC
 from Crypto.Signature import DSS
 
-from constants import SIGNATURE_VERIFIER_MODE, ECC_CURVE
+from constants import SIGNATURE_VERIFIER_MODE
 from util.b64 import b64_encode_bytes, str_to_bytes, b64_str_to_bytes
 
 

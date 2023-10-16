@@ -9,17 +9,21 @@ BYTE_ENCODING = "utf-8"
 LEDGER_PATH = "ledger"
 PRIVATE_KEY_FILE_NAME = "key.pem"
 PUBLIC_KEY_FILE_NAME = "key.pub"
+USER_DATA_FILE_NAME = "user.data"
 
 INITIAL_TRUSTED_IP = "192.168.195.30"
+INITIAL_TRUSTED_NAME = "30"
 
 IP = "localhost"
 PORT = "1939"
 
 HTTP_CONSTANTS = {
-  "SOURCE_IP_HEADER": "source"
+  "SOURCE_IP_HEADER": "source",
+  "NAME_HEADER": "name"
 }
 
 JSON_CONSTANTS = {
   "PEERS_KEY": "peers",
-  "PUBLIC_KEY_KEY": "publicKey"
+  "PUBLIC_KEY_KEY": "publicKey",
+  "NAME_KEY": "name"
 }

@@ -17,10 +17,11 @@ def greet_peers(state, peers):
     out = requests.post(
       f"http://{peer}:{PORT}/greet",
       headers={
-        HTTP_CONSTANTS["SOURCE_IP_HEADER"]: IP
+        HTTP_CONSTANTS["SOURCE_IP_HEADER"]: IP,
+        HTTP_CONSTANTS["NAME_HEADER"]: state.name
       }
     )
     js_val = json.loads(out.text)
     state.peers.update(
-      set(js_val[JSON_CONSTANTS["PEERS_KEY"]])
+      js_val[JSON_CONSTANTS["PEERS_KEY"]]
     )

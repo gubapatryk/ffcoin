@@ -1,3 +1,3 @@
 def print_user_peers(state):
-  for peer in state.peers:
-    print(f" > {peer}")
+  for peer, ip in state.peers.items():
+    print(f" > {peer} : {ip}")

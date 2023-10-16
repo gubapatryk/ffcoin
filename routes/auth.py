@@ -15,5 +15,6 @@ def get_public_key():
 
 def public_key_outcome(b64str):
   return json.dumps({
-    JSON_CONSTANTS["PUBLIC_KEY_KEY"]: b64str
+    JSON_CONSTANTS["PUBLIC_KEY_KEY"]: b64str,
+    JSON_CONSTANTS["NAME_KEY"]: state.name
   })

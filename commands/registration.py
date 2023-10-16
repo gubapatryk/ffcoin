@@ -8,11 +8,11 @@ def register(state):
   if len(state.peers) == 0:
     greet_peers(state, [INITIAL_TRUSTED_IP])
   else:
-    greet_peers(state, state.peers)
+    greet_peers(state, state.peers.values())
 
 
 def greet_peers(state, peers):
-  for peer in peers.copy():
+  for peer in peers:
     # blocking
     out = requests.post(
       f"http://{peer}:{PORT}/greet",

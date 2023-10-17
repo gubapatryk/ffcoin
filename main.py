@@ -7,8 +7,11 @@ from flask_app import flask_app
 from state import state
 
 # don't remove these imports - users of toy languages don't get that decorators are not macros
+# I'll add a ! each time I forget to register a route
+# ! !
 from routes.auth import *
 from routes.greet import *
+from routes.test_sign import *
 
 
 if __name__ == "__main__":

@@ -9,20 +9,14 @@ from util.exception.signature_exception import SignatureException
 
 
 def sign(state, bstr):
-  print("create hash")
   hash = SHA256.new(bstr)
-  print("create signer")
   signer = DSS.new(state.private_key, SIGNATURE_VERIFIER_MODE)
-  print("to b64")
   return b64_encode_bytes(signer.sign(hash))
 
 
 def sign_response(state, resp):
-  print("signing")
   header = sign(state, resp.response[0])
-  print("set header")
   resp.headers[HTTP_CONSTANTS["SIGNATURE_HEADER"]] = header
-  print("return response")
   return resp
 
 

@@ -13,7 +13,7 @@ class State:
     self.known_keys = dict()
 
   def get_public_key_as_str(self):
-    self.public_key.export_key(format=PUBLIC_KEY_ENCODING)
+    return self.public_key.export_key(format=PUBLIC_KEY_ENCODING)
 
 
 state = State()

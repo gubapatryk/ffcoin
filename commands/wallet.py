@@ -42,9 +42,6 @@ def save_key(state, passphrase, name):
 
 def load_keys_to_memory(state, key_pair, name):
 
-  print(key_pair)
-  print(key_pair.public_key())
-
   state.name = name
   state.private_key = key_pair
   state.public_key = key_pair.public_key()

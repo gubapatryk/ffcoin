@@ -42,3 +42,15 @@ def greet_outcome(state):
   return json.dumps({
     JSON_CONSTANTS["PEERS_KEY"]: out
   })
+
+
+# TODO: rethink saving trusted/untrusted data
+# maybe identity should be with keys not names
+def optionally_trust_source(state, original_name, original_source_ip):
+  known_ip = state.peers.get(original_name)
+  if known_ip is not None and known_ip is not original_source_ip:
+    pass # verify
+  elif known_ip is None:
+    state.peers[original_name] = original_source_ip
+  # if known_ip is not None and known_ip is original_source_ip
+  # do nothing

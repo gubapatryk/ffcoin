@@ -24,7 +24,8 @@ PORT = "1939"
 
 HTTP_CONSTANTS = {
   "SOURCE_IP_HEADER": "source",
-  "NAME_HEADER": "name"
+  "NAME_HEADER": "name",
+  "SIGNATURE_HEADER": "sign"
 }
 
 JSON_CONSTANTS = {

@@ -1,10 +1,7 @@
-import json
-
 import requests
 from Crypto.PublicKey import ECC
 
 from constants import PORT, JSON_CONSTANTS, ECC_CURVE
-from util.b64 import b64_str_to_bytes
 
 
 def shake_hand(state):

@@ -9,9 +9,12 @@ from util.signing import try_verify
 def get_name_from_ip(state):
   print("WARNING: this command is completely useless")
   ip = input("Provide ip whose name to discover: ").strip()
+  print(ip)
+  print(f"http://{ip}:{PORT}/name")
   out = requests.get(
     f"http://{ip}:{PORT}/name"
   )
+  print(out)
   js_val = json.loads(out.text)
   name = js_val[JSON_CONSTANTS["NAME_KEY"]]
   pub_key = state.known_keys[name]

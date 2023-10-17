@@ -17,6 +17,7 @@ def sign(state, str):
 def sign_response(state, resp):
   header = sign(state, resp.response)
   resp.headers[HTTP_CONSTANTS["SIGNATURE_HEADER"]] = header
+  print(resp)
   return resp
 
 

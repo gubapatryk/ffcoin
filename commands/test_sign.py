@@ -12,6 +12,7 @@ def get_name_from_ip(state):
   out = requests.get(
     f"http://{ip}:{PORT}/name"
   )
+  print(out)
   js_val = json.loads(out.text)
   name = js_val[JSON_CONSTANTS["NAME_KEY"]]
   pub_key = state.known_keys[name]

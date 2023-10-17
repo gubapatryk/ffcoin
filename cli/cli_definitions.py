@@ -13,6 +13,7 @@ cli_options = [
   CLIOption("5", "Shake hand with user", shake_hand),
   CLIOption("6", "List users whose keys you have", list_users_with_key),
   CLIOption("7", "(test) Get username by ip and verify", get_name_from_ip),
+  CLIOption("debug", "Print state", lambda s: s.print_state()),
   CLIOption("exit", "Exit", lambda _: exit())
 ]
 

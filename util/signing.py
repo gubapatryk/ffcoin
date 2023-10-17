@@ -43,3 +43,9 @@ def try_verify(pub_key, payload, signature):
     return True
   else:
     raise SignatureException()
+
+
+def try_verify_response(state, name, response):
+  pub_key = state.known_keys[name]
+  signature = response.headers[HTTP_CONSTANTS["SIGNATURE_HEADER"]]
+  return try_verify(pub_key, response.text, signature)

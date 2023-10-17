@@ -5,9 +5,10 @@ import requests
 
 from constants import HTTP_CONSTANTS, PORT, JSON_CONSTANTS, IP
 from flask_app import flask_app
-from flask import request
+from flask import request, Response
 
 from state import state
+from util.signing import sign_response
 
 
 # it could be beneficial to store greeted and non-greeted ips
@@ -32,7 +33,7 @@ def greet():
   # should we save ips only from sources we already know/trust
   # should we override ip?
   state.peers[original_name] = original_source_ip
-  return out
+  return sign_response(state, Response(out))
 
 
 def greet_outcome(state):

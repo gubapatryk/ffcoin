@@ -2,7 +2,7 @@ from cli.cli_option import CLIOption
 from commands.handshake import shake_hand, list_users_with_key
 from commands.registration import register
 from commands.state import print_user_peers
-from commands.test_sign import get_name_from_ip
+from commands.test_verify import get_name_from_ip
 from commands.wallet import set_up_keys, load_keys
 
 cli_options = [

@@ -8,21 +8,20 @@ from util.b64 import b64_encode_bytes, str_to_bytes, b64_str_to_bytes
 from util.exception.signature_exception import SignatureException
 
 
-def sign(state, str):
-  hash = SHA256.new(str_to_bytes(str))
+def sign(state, bstr):
+  hash = SHA256.new(bstr)
   signer = DSS.new(state.private_key, SIGNATURE_VERIFIER_MODE)
   return b64_encode_bytes(signer.sign(hash))
 
 
 def sign_response(state, resp):
-  header = sign(state, resp.response)
+  header = sign(state, resp.response[0])
   resp.headers[HTTP_CONSTANTS["SIGNATURE_HEADER"]] = header
-  print(resp)
   return resp
 
 
 def sign_dict(state, dict_payload):
-  sign(state, json.dumps(dict_payload))
+  sign(state, str_to_bytes(json.dumps(dict_payload)))
 
 
 def verify(pub_key, payload, signature):

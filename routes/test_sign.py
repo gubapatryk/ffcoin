@@ -13,5 +13,6 @@ def get_name():
   out = {
     JSON_CONSTANTS["NAME_KEY"]: state.name
   }
-  response = Response(json.dumps(out))
+  out = json.dumps(out)
+  response = Response(out)
   return sign_response(state, response)

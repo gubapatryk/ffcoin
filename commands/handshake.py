@@ -15,7 +15,9 @@ def shake_hand(state):
       f"http://{ip}:{PORT}/public-key"
     )
     out = json.dumps(out.text)
-    print(out) # debug
+    print(JSON_CONSTANTS["PUBLIC_KEY_KEY"])
+    print(out[JSON_CONSTANTS["PUBLIC_KEY_KEY"]])
+    print(ECC_CURVE)
     state.known_keys[out[JSON_CONSTANTS["NAME_KEY"]]] = ECC.import_key(
       out[JSON_CONSTANTS["PUBLIC_KEY_KEY"]], curve_name=ECC_CURVE
     )

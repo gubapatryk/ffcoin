@@ -12,4 +12,4 @@ def b64_str_to_bytes(str):
 
 
 def str_to_bytes(str):
-  bytes(str, BYTE_ENCODING)
+  return bytes(str, BYTE_ENCODING)

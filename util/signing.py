@@ -9,7 +9,6 @@ from util.exception.signature_exception import SignatureException
 
 
 def sign(state, bstr):
-  print(bstr)
   hash = SHA256.new(bstr)
   signer = DSS.new(state.private_key, SIGNATURE_VERIFIER_MODE)
   return b64_encode_bytes(signer.sign(hash))
@@ -26,8 +25,6 @@ def sign_dict(state, dict_payload):
 
 
 def verify(pub_key, payload, signature):
-  print(payload)
-  print(str_to_bytes(payload))
   hash = SHA256.new(str_to_bytes(payload))
   verifier = DSS.new(pub_key, SIGNATURE_VERIFIER_MODE)
   try:

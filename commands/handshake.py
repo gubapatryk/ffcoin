@@ -15,8 +15,9 @@ def shake_hand(state):
       f"http://{ip}:{PORT}/public-key"
     )
     out = json.dumps(out.text)
+    print(out) # debug
     state.known_keys[out[JSON_CONSTANTS["NAME_KEY"]]] = ECC.import_key(
-      b64_str_to_bytes(out[JSON_CONSTANTS["PUBLIC_KEY_KEY"]]), curve_name=ECC_CURVE
+      out[JSON_CONSTANTS["PUBLIC_KEY_KEY"]], curve_name=ECC_CURVE
     )
   else:
     print("Provided user does not exist, or is not discovered")

@@ -1,5 +1,4 @@
-KEY_SIZE = 4096
-CRYPTO_EXPONENT = 65537
+ENFORCE_PASSWORD_STRENGTH = False
 
 ECC_CURVE = "P-256"
 ECC_PROTECTION = "PBKDF2WithHMAC-SHA1AndAES128-CBC"
@@ -12,7 +11,7 @@ SIGNATURE_VERIFIER_MODE = "fips-186-3"
 BYTE_ENCODING = "utf-8"
 
 LEDGER_PATH = "ledger"
-PRIVATE_KEY_FILE_NAME = "key.pem"
+IDENTITY_FILE_NAME = "identity.ffc"
 PUBLIC_KEY_FILE_NAME = "key.pub"
 USER_DATA_FILE_NAME = "user.data"
 IV_FILE_NAME = "iv.aes"
@@ -33,4 +32,13 @@ JSON_CONSTANTS = {
   "PEERS_KEY": "peers",
   "PUBLIC_KEY_KEY": "publicKey",
   "NAME_KEY": "name"
+}
+
+LOCAL_DATA_CONSTANTS = {
+  "SALT_KEY": "salt",
+  "ENCRYPTED_DEK_KEY": "dek",
+  "CIPHERTEXT_KEY": "ciphertext",
+  "NAME_KEY": "name",
+  "KEK_NONCE_NAME": "kek_nonce",
+  "DEK_NONCE_NAME": "dek_nonce"
 }

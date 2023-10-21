@@ -1,6 +1,5 @@
 import json
 
-import grequests
 import requests
 
 from constants import HTTP_CONSTANTS, PORT, JSON_CONSTANTS, IP

@@ -27,5 +27,5 @@ class User:
     return self
 
   def __str__(self) -> str:
-    return f"name: {self.name}, ip: {self.ip}, public_key: {self.public_key}"
+    return f"name: {self.name}, ip: {self.ip}, public_key: {self.get_public_key_as_str()}"
 

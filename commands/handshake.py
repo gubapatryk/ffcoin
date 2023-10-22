@@ -32,6 +32,6 @@ def shake_hand_by_ip(state: State, user: User):
 
 
 def list_users_with_key(state: State):
-  for user in state.peers:
-    if user.public_key is not None:
-      print(f" > {user.ip} -> {user.get_public_key_as_str()}")
+  for ip, peer in state.peers.items():
+    if peer.public_key is not None:
+      print(f" > {ip} -> {peer.get_public_key_as_str()}")

@@ -11,7 +11,7 @@ class State:
     self.name: "str | None" = None
     self.private_key: "EccKey | None" = None
     self.public_key: "EccKey | None" = None
-    self.peers = {
+    self.peers: dict[str, User] = {
       INITIAL_TRUSTED_IP: User(INITIAL_TRUSTED_NAME, INITIAL_TRUSTED_IP)
     }
 
@@ -28,9 +28,10 @@ class State:
 
   def print_state(self):
     print(f"name: {self.name}")
-    print(f"private key: {self.private_key}")
-    print(f"public key: {self.public_key}")
-    print(f"peers: {self.peers}")
+    print(f"private key: ???")
+    print(f"public key: {self.get_public_key_as_str()}")
+    for ip, peer in self.peers.items():
+      print(peer)
 
 
 state = State()

@@ -1,6 +1,7 @@
 import os
 import threading
 
+from cli.cli_option import CLIOption
 from cli.cli_definitions import cli_options, cli_map
 from constants import IP, PORT
 from flask_app import flask_app
@@ -28,10 +29,10 @@ if __name__ == "__main__":
   
   while True:
 
-    code = input("$ ").strip()
-    cli_option = cli_map.get(code)
+    code: str = input("$ ").strip()
+    cli_option: "CLIOption | None" = cli_map.get(code)
 
-    if code is None:
+    if cli_option is None:
       print("Invalid option")
     else:
       cli_option.callback(state)

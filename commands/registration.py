@@ -15,10 +15,6 @@ def greet_peers(state: State):
   ip: str
   user: User
   for ip, user in state.peers.copy().items():
-    print("IP to greet")
-    print(ip)
-    print("USER to greet")
-    print(user)
     if user.public_key is not None:
       # blocking
       out = requests.post(

@@ -14,7 +14,7 @@ def register(state: State):
 def greet_peers(state: State):
   ip: str
   user: User
-  for ip, user in state.peers.copy():
+  for ip, user in state.peers.copy().items():
     if user.public_key is not None:
       # blocking
       out = requests.post(

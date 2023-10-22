@@ -31,7 +31,8 @@ def greet():
         )
   # should we save ips only from sources we already know/trust
   # should we override ip?
-  state.peers[original_name] = original_source_ip
+  greeter_user = User(original_name, original_source_ip)
+  state.add_peer(original_source_ip, greeter_user)
   return sign_response(state, Response(out))
 
 

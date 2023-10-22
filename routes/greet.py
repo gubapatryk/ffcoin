@@ -6,7 +6,7 @@ from constants import HTTP_CONSTANTS, PORT, JSON_CONSTANTS, IP
 from flask_app import flask_app
 from flask import request, Response
 
-from state import state
+from state import state, State, User
 from util.signing import sign_response
 
 
@@ -35,21 +35,20 @@ def greet():
   return sign_response(state, Response(out))
 
 
-def greet_outcome(state):
-  out = state.peers.copy()
-  out[state.name] = IP
+def greet_outcome(state: State):
+
+  out = [{
+    JSON_CONSTANTS["IP_KEY"]: IP,
+    JSON_CONSTANTS["NAME_KEY"]: state.name
+  }]
+
+  peer: User
+  for peer in state.peers:
+    out.append({
+      JSON_CONSTANTS["IP_KEY"]: peer.ip,
+      JSON_CONSTANTS["NAME_KEY"]: peer.name
+    })
+
   return json.dumps({
     JSON_CONSTANTS["PEERS_KEY"]: out
   })
-
-
-# TODO: rethink saving trusted/untrusted data
-# maybe identity should be with keys not names
-def optionally_trust_source(state, original_name, original_source_ip):
-  known_ip = state.peers.get(original_name)
-  if known_ip is not None and known_ip is not original_source_ip:
-    pass # verify
-  elif known_ip is None:
-    state.peers[original_name] = original_source_ip
-  # if known_ip is not None and known_ip is original_source_ip
-  # do nothing

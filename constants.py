@@ -31,7 +31,8 @@ HTTP_CONSTANTS = {
 JSON_CONSTANTS = {
   "PEERS_KEY": "peers",
   "PUBLIC_KEY_KEY": "publicKey",
-  "NAME_KEY": "name"
+  "NAME_KEY": "name",
+  "IP_KEY": "ip"
 }
 
 LOCAL_DATA_CONSTANTS = {

@@ -3,7 +3,6 @@ import json
 from constants import JSON_CONSTANTS
 from flask_app import flask_app
 from state import state
-from util import b64
 
 
 @flask_app.route("/public-key")

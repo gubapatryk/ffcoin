@@ -4,7 +4,7 @@ from Crypto.Signature import DSS
 from requests import Response as InResponse
 from flask import Response as OutResponse
 
-from constants import SIGNATURE_VERIFIER_MODE, HTTP_CONSTANTS
+from constants import SIGNATURE_VERIFIER_MODE, HTTP_CONSTANTS, NON_SIGNABLE_HEADERS
 from state import State
 from util.b64 import b64_encode_bytes, str_to_bytes, b64_str_to_bytes
 from util.exception.signature_exception import SignatureException
@@ -47,7 +47,9 @@ def try_verify_response(state: State, ip: str, response: InResponse):
 
 def in_response_to_bytes(response: InResponse) -> bytes:
   body_str = response.text
-  headers_str = ",".join([f"{key}:{value}" for key, value in response.headers.items()])
+  headers_str = ",".join([
+    f"{key}:{value}" for key, value in filter_non_signable_headers(response.headers)
+  ])
   print("IN response")
   print(body_str + headers_str)
   return str_to_bytes(body_str + headers_str)
@@ -55,7 +57,13 @@ def in_response_to_bytes(response: InResponse) -> bytes:
 
 def out_response_to_bytes(response: OutResponse) -> bytes:
   body_str = response.get_data(as_text=True)
-  headers_str = ",".join([f"{key}:{value}" for key, value in response.headers.items()])
+  headers_str = ",".join([
+    f"{key}:{value}" for key, value in filter_non_signable_headers(response.headers)
+  ])
   print("OUT response")
   print(body_str + headers_str)
   return str_to_bytes(body_str + headers_str)
+
+
+def filter_non_signable_headers(headers):
+  return filter(lambda tpl: tpl[0] not in NON_SIGNABLE_HEADERS, headers.items())

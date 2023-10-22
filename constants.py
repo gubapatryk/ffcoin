@@ -43,3 +43,10 @@ LOCAL_DATA_CONSTANTS = {
   "KEK_NONCE_NAME": "kek_nonce",
   "DEK_NONCE_NAME": "dek_nonce"
 }
+
+NON_SIGNABLE_HEADERS: set[str] = {
+  "Server",
+  "Date",
+  "Connection",
+  HTTP_CONSTANTS["SIGNATURE_HEADER"]
+}

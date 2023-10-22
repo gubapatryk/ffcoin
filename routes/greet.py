@@ -1,6 +1,7 @@
 import json
 
 import requests
+from requests.exceptions import Timeout, TooManyRedirects, ConnectionError
 
 from constants import HTTP_CONSTANTS, PORT, JSON_CONSTANTS, IP
 from flask_app import flask_app
@@ -21,15 +22,16 @@ def greet():
   if original_source_ip not in state.peers.keys() and direct_source_ip not in state.peers.keys():
     for ip, peer in state.peers.copy().items():
       if ip != IP:
-        requests.post(  # TODO: make it async
-          f"http://{ip}:{PORT}/greet",
-          headers={
-            HTTP_CONSTANTS["SOURCE_IP_HEADER"]: original_source_ip,
-            HTTP_CONSTANTS["NAME_HEADER"]: original_name
-          }
-        )
-  # should we save ips only from sources we already know/trust
-  # should we override ip?
+        try:
+          requests.post(  # TODO: make it async
+            f"http://{ip}:{PORT}/greet",
+            headers={
+              HTTP_CONSTANTS["SOURCE_IP_HEADER"]: original_source_ip,
+              HTTP_CONSTANTS["NAME_HEADER"]: original_name
+            }
+          )
+        except (ConnectionError, Timeout, TooManyRedirects):
+          state.remove_peer(ip)
   greeter_user = User(original_name, original_source_ip)
   state.add_peer(original_source_ip, greeter_user)
   return sign_response(state, Response(out))

@@ -1,7 +1,8 @@
 import requests
 from Crypto.PublicKey import ECC
+from requests.exceptions import Timeout, TooManyRedirects, ConnectionError
 
-from constants import PORT, JSON_CONSTANTS, ECC_CURVE
+from constants import PORT, JSON_CONSTANTS, ECC_CURVE, HTTP_TIMEOUT
 from state import User, State
 
 
@@ -15,20 +16,24 @@ def shake_hand(state):
 
 
 def shake_hand_by_ip(state: State, user: User):
-  out = requests.get(
-    f"http://{user.ip}:{PORT}/public-key"
-  )
-  out = out.json()
-  state.add_peer(
-    user.ip,
-    User(
-      out[JSON_CONSTANTS["NAME_KEY"]],
+  try:
+    out = requests.get(
+      f"http://{user.ip}:{PORT}/public-key",
+      timeout=HTTP_TIMEOUT
+    )
+    out = out.json()
+    state.add_peer(
       user.ip,
-      ECC.import_key(
-        out[JSON_CONSTANTS["PUBLIC_KEY_KEY"]], curve_name=ECC_CURVE
+      User(
+        out[JSON_CONSTANTS["NAME_KEY"]],
+        user.ip,
+        ECC.import_key(
+          out[JSON_CONSTANTS["PUBLIC_KEY_KEY"]], curve_name=ECC_CURVE
+        )
       )
     )
-  )
+  except (ConnectionError, Timeout, TooManyRedirects):
+    state.remove_peer(user.ip)
 
 
 def list_users_with_key(state: State):

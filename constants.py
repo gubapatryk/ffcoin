@@ -12,9 +12,8 @@ BYTE_ENCODING = "utf-8"
 
 LEDGER_PATH = "ledger"
 IDENTITY_FILE_NAME = "identity.ffc"
-PUBLIC_KEY_FILE_NAME = "key.pub"
-USER_DATA_FILE_NAME = "user.data"
-IV_FILE_NAME = "iv.aes"
+KNOWN_USERS_FILE_NAME = "net.ffc"
+EMPTY_KEY_REPRESENTATION = "key not handshook"
 
 INITIAL_TRUSTED_IP = "192.168.195.30"
 INITIAL_TRUSTED_NAME = "30"

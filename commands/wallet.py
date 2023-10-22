@@ -8,7 +8,7 @@ from Crypto.Random import get_random_bytes
 
 from constants import LEDGER_PATH, IDENTITY_FILE_NAME, \
   PRIVATE_KEY_ENCODING, ECC_CURVE, ECC_PROTECTION, BYTE_ENCODING, \
-  LOCAL_DATA_CONSTANTS
+  LOCAL_DATA_CONSTANTS, KNOWN_USERS_FILE_NAME
 from util.b64 import str_to_bytes, b64_encode_bytes, b64_str_to_bytes
 from util.password_strength import try_password_strength
 
@@ -36,6 +36,8 @@ def save_key(state, passphrase, name):
 
   with open(f"{LEDGER_PATH}/{IDENTITY_FILE_NAME}", 'wb') as f:
     write_key(private_key_str, passphrase, name, f)
+
+  state.save_peers_to_file()
 
   print("Loading keys...")
 
@@ -99,6 +101,10 @@ def load_keys(state):
       key_pair = ECC.import_key(padded_key, passphrase, ECC_CURVE)
 
       load_keys_to_memory(state, key_pair, name)
+
+    with open(f"{LEDGER_PATH}/{KNOWN_USERS_FILE_NAME}", 'rb') as f:
+      dict_data: dict = json.loads(f.read().decode(BYTE_ENCODING))
+      state.override_peers_from_dict(dict_data)
 
   except ValueError:
     print("Invalid password")

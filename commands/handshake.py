@@ -8,6 +8,8 @@ from state import User, State
 def shake_hand(state):
   who = input("Provide ip: ").strip()
   user: User = state.peers.get(who)
+  print("Initial user to shake hand")
+  print(user)
   if user is not None:
     shake_hand_by_ip(state, user)
   else:
@@ -19,13 +21,18 @@ def shake_hand_by_ip(state: State, user: User):
     f"http://{user.ip}:{PORT}/public-key"
   )
   out = out.json()
-  state.add_peer(user.ip, User(
-    out[JSON_CONSTANTS["NAME_KEY"]],
+  print("pk response")
+  print(out)
+  state.add_peer(
     user.ip,
-    ECC.import_key(
-      out[JSON_CONSTANTS["PUBLIC_KEY_KEY"]], curve_name=ECC_CURVE
+    User(
+      out[JSON_CONSTANTS["NAME_KEY"]],
+      user.ip,
+      ECC.import_key(
+        out[JSON_CONSTANTS["PUBLIC_KEY_KEY"]], curve_name=ECC_CURVE
+      )
     )
-  ))
+  )
 
 
 def list_users_with_key(state: State):

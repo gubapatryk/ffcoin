@@ -1,5 +1,3 @@
-import json
-
 from Crypto.Hash import SHA256
 from Crypto.PublicKey.ECC import EccKey
 from Crypto.Signature import DSS
@@ -50,10 +48,14 @@ def try_verify_response(state: State, ip: str, response: InResponse):
 def in_response_to_bytes(response: InResponse) -> bytes:
   body_str = response.text
   headers_str = ",".join([f"{key}:{value}" for key, value in response.headers.items()])
+  print("IN response")
+  print(body_str + headers_str)
   return str_to_bytes(body_str + headers_str)
 
 
 def out_response_to_bytes(response: OutResponse) -> bytes:
   body_str = response.get_data(as_text=True)
   headers_str = ",".join([f"{key}:{value}" for key, value in response.headers.items()])
+  print("OUT response")
+  print(body_str + headers_str)
   return str_to_bytes(body_str + headers_str)

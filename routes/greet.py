@@ -20,7 +20,7 @@ def greet():
   out = greet_outcome(state)
   if original_source_ip not in state.peers.values() and direct_source_ip not in state.peers.values():
     # async - I suspect waiting for outcome from entire net will fry processors
-    for peer, ip in state.peers.items():
+    for ip, peer in state.peers.copy().items():
       if ip is not IP:
         requests.post(  # TODO: make it async
           f"http://{ip}:{PORT}/greet",
@@ -32,7 +32,6 @@ def greet():
   # should we save ips only from sources we already know/trust
   # should we override ip?
   state.peers[original_name] = original_source_ip
-  print("returning response ")
   return sign_response(state, Response(out))
 
 

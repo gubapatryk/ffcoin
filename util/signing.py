@@ -50,8 +50,6 @@ def in_response_to_bytes(response: InResponse) -> bytes:
   headers_str = ",".join([
     f"{key}:{value}" for key, value in filter_non_signable_headers(response.headers)
   ])
-  print("IN response")
-  print(body_str + headers_str)
   return str_to_bytes(body_str + headers_str)
 
 
@@ -60,8 +58,6 @@ def out_response_to_bytes(response: OutResponse) -> bytes:
   headers_str = ",".join([
     f"{key}:{value}" for key, value in filter_non_signable_headers(response.headers)
   ])
-  print("OUT response")
-  print(body_str + headers_str)
   return str_to_bytes(body_str + headers_str)
 
 

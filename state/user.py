@@ -19,9 +19,17 @@ class User:
     return stringify_key(self.public_key)
 
   def update_with(self, other):
+    print("self.ip")
+    print(self.ip)
+    print("other.ip")
+    print(other.ip)
     if self.ip is not other.ip:
       raise Exception("Tried to merge users with different ips")
     if (self.public_key is None) or (self.public_key is not None and other.public_key is not None):
       self.name = other.name
       self.public_key = other.public_key
     return self
+
+  def __str__(self) -> str:
+    return f"name: {self.name}, ip: {self.ip}, public_key: {self.public_key}"
+

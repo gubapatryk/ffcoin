@@ -32,6 +32,7 @@ def greet():
   # should we save ips only from sources we already know/trust
   # should we override ip?
   state.peers[original_name] = original_source_ip
+  print("returning response ")
   return sign_response(state, Response(out))
 
 
@@ -43,9 +44,9 @@ def greet_outcome(state: State):
   }]
 
   peer: User
-  for peer in state.peers:
+  for ip, peer in state.peers.copy().items():
     out.append({
-      JSON_CONSTANTS["IP_KEY"]: peer.ip,
+      JSON_CONSTANTS["IP_KEY"]: ip,
       JSON_CONSTANTS["NAME_KEY"]: peer.name
     })
 

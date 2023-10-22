@@ -24,6 +24,7 @@ def greet_peers(state: State):
           HTTP_CONSTANTS["NAME_HEADER"]: state.name
         }
       )
+      print(f"//greet response {out}")
       try_verify_response(state, ip, out)
       js_val = json.loads(out.text)
       user_response: list[dict] = js_val[JSON_CONSTANTS["PEERS_KEY"]]

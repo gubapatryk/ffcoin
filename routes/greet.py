@@ -18,10 +18,9 @@ def greet():
   original_name = request.headers.get(HTTP_CONSTANTS["NAME_HEADER"])
   direct_source_ip = request.remote_addr
   out = greet_outcome(state)
-  if original_source_ip not in state.peers.values() and direct_source_ip not in state.peers.values():
-    # async - I suspect waiting for outcome from entire net will fry processors
+  if original_source_ip not in state.peers.keys() and direct_source_ip not in state.peers.keys():
     for ip, peer in state.peers.copy().items():
-      if ip is not IP:
+      if ip != IP:
         requests.post(  # TODO: make it async
           f"http://{ip}:{PORT}/greet",
           headers={

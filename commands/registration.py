@@ -27,15 +27,9 @@ def greet_peers(state: State):
       try_verify_response(state, ip, out)
       js_val = json.loads(out.text)
       user_response: list[dict] = js_val[JSON_CONSTANTS["PEERS_KEY"]]
-      print("User response")
-      print(user_response)
       for user_dict in user_response:
         new_user_ip = user_dict[JSON_CONSTANTS["IP_KEY"]]
-        print("ip")
-        print(new_user_ip)
         new_user = User(user_dict[JSON_CONSTANTS["NAME_KEY"]], new_user_ip)
-        print("new_user")
-        print(new_user)
         state.add_peer(new_user_ip, new_user)
     else:
       print(f"No public key for {ip}, shaking hands is an option")

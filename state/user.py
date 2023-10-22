@@ -7,13 +7,13 @@ class User:
 
   def __init__(
     self,
-    name: str | None = None,
-    ip: str | None = None,
-    public_key: EccKey | None = None
+    name: "str | None" = None,
+    ip: "str | None" = None,
+    public_key: "EccKey | None" = None
   ):
-    self.name: str | None = name
-    self.ip: str | None = ip
-    self.public_key: EccKey | None = public_key
+    self.name: "str | None" = name
+    self.ip: "str | None" = ip
+    self.public_key: "EccKey | None" = public_key
 
   def get_public_key_as_str(self) -> str:
     return stringify_key(self.public_key)

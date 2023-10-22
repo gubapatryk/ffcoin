@@ -8,9 +8,9 @@ from util.key_util import get_public_key_as_str as stringify_key
 class State:
 
   def __init__(self):
-    self.name: str | None = None
-    self.private_key: EccKey | None = None
-    self.public_key: EccKey | None = None
+    self.name: "str | None" = None
+    self.private_key: "EccKey | None" = None
+    self.public_key: "EccKey | None" = None
     self.peers = {
       INITIAL_TRUSTED_IP: User(INITIAL_TRUSTED_NAME, INITIAL_TRUSTED_IP)
     }
@@ -19,7 +19,7 @@ class State:
     return stringify_key(self.public_key)
 
   def add_peer(self, ip: str, user: User):
-    old_peer: User | None = self.peers.get(ip)
+    old_peer: "User | None" = self.peers.get(ip)
     if old_peer is None:
       self.peers[ip] = user
     else:

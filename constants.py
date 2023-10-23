@@ -1,3 +1,5 @@
+from datetime import timezone, timedelta
+
 ENFORCE_PASSWORD_STRENGTH = False
 
 ECC_CURVE = "P-256"
@@ -24,17 +26,21 @@ IP = "localhost"
 PORT = "1939"
 HTTP_TIMEOUT = 10
 
+TIMEZONE = timezone(timedelta(hours=0.0))
+
 HTTP_CONSTANTS = {
   "SOURCE_IP_HEADER": "source",
   "NAME_HEADER": "name",
-  "SIGNATURE_HEADER": "sign"
+  "SIGNATURE_HEADER": "sign",
 }
 
 JSON_CONSTANTS = {
   "PEERS_KEY": "peers",
   "PUBLIC_KEY_KEY": "publicKey",
   "NAME_KEY": "name",
-  "IP_KEY": "ip"
+  "IP_KEY": "ip",
+  "SOURCE_IP_KEY": "source",
+  "BROADCAST_MESSAGE_ID": "id"
 }
 
 LOCAL_DATA_CONSTANTS = {

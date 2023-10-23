@@ -11,8 +11,7 @@ from state import state, State, User
 from util.signing import sign_response
 
 
-# it could be beneficial to store greeted and non-greeted ips
-# this way calling this multiple times would lead to a nice greedy discovery algorithm
+# deprecated
 @flask_app.route("/greet", methods=["POST"])
 def greet():
   original_source_ip = request.headers.get(HTTP_CONSTANTS["SOURCE_IP_HEADER"])
@@ -37,8 +36,47 @@ def greet():
   return sign_response(state, Response(out))
 
 
-def greet_outcome(state: State):
+@flask_app.route("/broadcast", methods=["POST"])
+def broadcast():
+  direct_source_ip = request.remote_addr
+  data: dict = request.get_json()
+  message_id = data[JSON_CONSTANTS["BROADCAST_MESSAGE_ID"]]
+  original_source_ip = data[JSON_CONSTANTS["SOURCE_IP_KEY"]]
+  original_name = data[JSON_CONSTANTS["NAME_KEY"]]
+  if message_id not in state.broadcast_table:
+    greeter_user = User(original_name, original_source_ip)
+    state.add_peer(original_source_ip, greeter_user)
+    for ip, peer in state.peers.copy().items():
+      if ip != IP or ip != direct_source_ip:
+        try:
+          requests.post(  # TODO: make it async
+            f"http://{ip}:{PORT}/broadcast", json=data
+          )
+        except (ConnectionError, Timeout, TooManyRedirects):
+          state.remove_peer(ip)
+    try:
+      requests.post(
+        f"http://{original_source_ip}:{PORT}/poke", json={
+          JSON_CONSTANTS["SOURCE_IP_KEY"]: IP,
+          JSON_CONSTANTS["NAME_KEY"]: state.name
+        }
+      )
+    except (ConnectionError, Timeout, TooManyRedirects):
+      state.remove_peer(original_source_ip)
+  return {}
 
+
+@flask_app.route("/poke", methods=["POST"])
+def poke():
+  data: dict = request.get_json()
+  source_ip = data[JSON_CONSTANTS["SOURCE_IP_KEY"]]
+  source_name = data[JSON_CONSTANTS["NAME_KEY"]]
+  user = User(source_name, source_ip)
+  state.add_peer(source_ip, user)
+  return {}
+
+
+def greet_outcome(state: State):
   out = [{
     JSON_CONSTANTS["IP_KEY"]: IP,
     JSON_CONSTANTS["NAME_KEY"]: state.name

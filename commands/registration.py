@@ -1,8 +1,9 @@
 import json
 
 from requests.exceptions import Timeout, TooManyRedirects, ConnectionError
-
+from time import time
 from constants import PORT, IP, HTTP_CONSTANTS, JSON_CONSTANTS
+from random import randint
 import requests
 
 from state import State, User
@@ -13,6 +14,7 @@ def register(state: State):
   greet_peers(state)
 
 
+# deprecated
 def greet_peers(state: State):
   ip: str
   user: User
@@ -38,3 +40,21 @@ def greet_peers(state: State):
         state.remove_peer(ip)
     else:
       print(f"No public key for {ip}, shaking hands is an option")
+
+
+def broadcast(state: State):
+  msg_id: str = str(int(time())) + str(randint(0, 99999999))
+  ip: str
+  user: User
+  for ip, user in state.peers.copy().items():
+    if ip != IP:
+      try:
+        requests.post(
+          f"http://{ip}:{PORT}/broadcast", json={
+            JSON_CONSTANTS["BROADCAST_MESSAGE_ID"]: msg_id,
+            JSON_CONSTANTS["SOURCE_IP_KEY"]: IP,
+            JSON_CONSTANTS["NAME_KEY"]: state.name
+          }
+        )
+      except (ConnectionError, Timeout, TooManyRedirects):
+        state.remove_peer(ip)

@@ -4,6 +4,7 @@ from Crypto.PublicKey.ECC import EccKey
 
 from constants import INITIAL_TRUSTED_IP, INITIAL_TRUSTED_NAME, NON_EXISTENT_IP, NON_EXISTENT_NAME, JSON_CONSTANTS, \
   EMPTY_KEY_REPRESENTATION, LEDGER_PATH, KNOWN_USERS_FILE_NAME, BYTE_ENCODING
+from state.broadcast_entry import BroadcastEntry
 from state.user import User, user_from_dict
 from util.key_util import get_public_key_as_str as stringify_key
 
@@ -18,6 +19,7 @@ class State:
       INITIAL_TRUSTED_IP: User(INITIAL_TRUSTED_NAME, INITIAL_TRUSTED_IP),
       NON_EXISTENT_IP: User(NON_EXISTENT_NAME, NON_EXISTENT_IP)
     }
+    self.broadcast_table: dict[str, BroadcastEntry] = dict()
 
   def get_public_key_as_str(self) -> str:
     return EMPTY_KEY_REPRESENTATION if self.public_key is None else stringify_key(self.public_key)
@@ -34,6 +36,10 @@ class State:
     if with_message:
       print(f"Removing user {ip} due to connection error")
     self.peers.pop(ip)
+
+  def add_broadcast_entry(self, id: str):
+    self.broadcast_table[id] = BroadcastEntry(id)
+    return self
 
   def peers_to_save_dict(self) -> dict:
     return {

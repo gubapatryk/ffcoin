@@ -49,6 +49,7 @@ def broadcast(state: State):
   for ip, user in state.peers.copy().items():
     if ip != IP:
       try:
+        print(f"broadcasting to {ip}")
         requests.post(
           f"http://{ip}:{PORT}/broadcast", json={
             JSON_CONSTANTS["BROADCAST_MESSAGE_ID"]: msg_id,
@@ -56,5 +57,6 @@ def broadcast(state: State):
             JSON_CONSTANTS["NAME_KEY"]: state.name
           }
         )
+        print(f"ended message to {ip}")
       except (ConnectionError, Timeout, TooManyRedirects):
         state.remove_peer(ip)

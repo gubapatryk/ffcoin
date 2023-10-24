@@ -2,7 +2,7 @@ from datetime import timezone, timedelta
 
 ENFORCE_PASSWORD_STRENGTH = False
 
-ECC_CURVE = "P-256"
+ECC_CURVE = "ed448"
 ECC_PROTECTION = "PBKDF2WithHMAC-SHA1AndAES128-CBC"
 
 PRIVATE_KEY_ENCODING = "PEM"

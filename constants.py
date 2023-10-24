@@ -28,13 +28,13 @@ HTTP_TIMEOUT = 10
 
 TIMEZONE = timezone(timedelta(hours=0.0))
 
-HTTP_CONSTANTS = {
+HTTP_CONSTANTS: dict[str, str] = {
   "SOURCE_IP_HEADER": "source",
   "NAME_HEADER": "name",
   "SIGNATURE_HEADER": "sign",
 }
 
-JSON_CONSTANTS = {
+JSON_CONSTANTS: dict[str, str] = {
   "PEERS_KEY": "peers",
   "PUBLIC_KEY_KEY": "publicKey",
   "NAME_KEY": "name",
@@ -43,7 +43,7 @@ JSON_CONSTANTS = {
   "BROADCAST_MESSAGE_ID": "id"
 }
 
-LOCAL_DATA_CONSTANTS = {
+LOCAL_DATA_CONSTANTS: dict[str, str] = {
   "SALT_KEY": "salt",
   "ENCRYPTED_DEK_KEY": "dek",
   "CIPHERTEXT_KEY": "ciphertext",

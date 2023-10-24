@@ -32,6 +32,7 @@ def shake_hand_by_ip(state: State, user: User):
         )
       )
     )
+    state.save_peers_to_file()
   except (ConnectionError, Timeout, TooManyRedirects):
     state.remove_peer(user.ip)
 

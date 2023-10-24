@@ -63,6 +63,7 @@ def broadcast():
       )
     except (ConnectionError, Timeout, TooManyRedirects):
       state.remove_peer(original_source_ip)
+  state.save_peers_to_file()
   return {}
 
 
@@ -73,6 +74,7 @@ def poke():
   source_name = data[JSON_CONSTANTS["NAME_KEY"]]
   user = User(source_name, source_ip)
   state.add_peer(source_ip, user)
+  state.save_peers_to_file()
   return {}
 
 

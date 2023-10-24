@@ -58,3 +58,4 @@ def broadcast(state: State):
         )
       except (ConnectionError, Timeout, TooManyRedirects):
         state.remove_peer(ip)
+  state.save_peers_to_file()

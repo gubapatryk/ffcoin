@@ -1,6 +1,6 @@
 from Crypto.Hash import SHA256
 from Crypto.PublicKey.ECC import EccKey
-from Crypto.Signature import DSS
+from Crypto.Signature import DSS, eddsa
 from requests import Response as InResponse
 from flask import Response as OutResponse
 
@@ -12,7 +12,7 @@ from util.exception.signature_exception import SignatureException
 
 def sign(state: State, bstr: bytes) -> str:
   hash = SHA256.new(bstr)
-  signer = DSS.new(state.private_key, SIGNATURE_VERIFIER_MODE)
+  signer = eddsa.new(state.private_key, SIGNATURE_VERIFIER_MODE)
   return b64_encode_bytes(signer.sign(hash))
 
 
@@ -24,7 +24,7 @@ def sign_response(state, resp: OutResponse) -> OutResponse:
 
 def verify(pub_key: EccKey, payload: bytes, signature: str):
   hsh = SHA256.new(payload)
-  verifier = DSS.new(pub_key, SIGNATURE_VERIFIER_MODE)
+  verifier = eddsa.new(pub_key, SIGNATURE_VERIFIER_MODE)
   try:
     verifier.verify(hsh, b64_str_to_bytes(signature))
     return True

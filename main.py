@@ -17,7 +17,6 @@ from routes.test_sign import *
 # blockchainery
 from state.block import Block
 from state.blockchain import Blockchain
-from miner import Miner
 
 if __name__ == "__main__":
 
@@ -31,12 +30,6 @@ if __name__ == "__main__":
   flask_thread = threading.Thread(target=run_flask_app)
   flask_thread.start()
   
-  #blockchain = Blockchain()
-  #miner = Miner(blockchain)
-
-  #miner_thread = threading.Thread(target=miner.mine_blocks())
-  #miner_thread.start()
-
   while True:
 
     code: str = input("$ ").strip()

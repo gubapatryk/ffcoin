@@ -2,6 +2,7 @@ import hashlib
 import datetime
 import time
 
+
 class Block: 
     def __init__(self, data, previous_hash): 
 
@@ -26,4 +27,5 @@ class Block:
             self.nonce += 1
             self.hash = self.calculate_hash() 
   
-        print("Block mined:", self.hash) 
+        print("Block mined:", self.hash)
+

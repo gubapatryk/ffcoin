@@ -40,16 +40,17 @@ def force_update_blockchain(state):
                     print("hejze")
                     state.blockchain.chain = new_bc
                     break
-            except:
+            except Exception as e: 
+                print(e)
                 print(f'Route to {ip} not found')
 
 #Sprawdzanie czy nowy blockchain jest poprawny wzgledem dotychczasowych blokow
 def is_good_new_blockchain(org_bc,new_bc):
+    if len(org_bc) > len(new_bc):
+        shrt_len = len(new_bc)
+    else:
+        shrt_len = len(org_bc)
     if len(org_bc) > 1:
-        if len(org_bc) > len(new_bc):
-            shrt_len = len(new_bc)
-        else:
-            shrt_len = len(org_bc)
         for x in range(1,shrt_len):
             print("org hash")
             print(org_bc[x-1].nonce)
@@ -59,8 +60,14 @@ def is_good_new_blockchain(org_bc,new_bc):
             print(new_bc[x-1].hash)
             if org_bc[x-1].hash != new_bc[x-1].hash:
                 return False
+            print("ok policz hasze")
+            print(new_bc[x-1].calculate_hash())
+            print(new_bc[x-1].hash)
             if new_bc[x-1].calculate_hash() != new_bc[x-1].hash:
                 return False
+    for x in range(shrt_len-1,len(new_bc)):
+        if new_bc[x-1].calculate_hash() != new_bc[x-1].hash:
+            return False
     return True
 
 def hostile_mode_switch(state):

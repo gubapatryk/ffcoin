@@ -17,6 +17,7 @@ cli_options = [
   CLIOption("7", "(test) Get username by ip and verify", get_name_from_ip),
   CLIOption("8", "Print blockchain", print_blockchain),
   CLIOption("9", "Add data to blockchain", add_data_blockchain),
+  CLIOption("10", "Force update blockchain using other node", add_data_blockchain),
   CLIOption("exit", "Exit", lambda _: exit())
 ]
 

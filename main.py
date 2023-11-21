@@ -13,6 +13,7 @@ from state import state
 from routes.auth import *
 from routes.greet import *
 from routes.test_sign import *
+from routes.synch import *
 
 # blockchainery
 from state.block import Block

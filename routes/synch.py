@@ -1,4 +1,5 @@
 import jsonpickle 
+from flask import jsonify
 from state import state
 import requests
 from requests.exceptions import Timeout, TooManyRedirects, ConnectionError
@@ -18,8 +19,4 @@ def synch():
 
 @flask_app.route("/synch", methods=["GET"])
 def send_chain():
-  state.blockchain.chain = jsonpickle.decode(request.get_json())
-  print(request.get_json())
-  print("lets goooo")
-  print(state.blockchain)
-  return jsonpickle.encode(state.blockchain.chain)
+  return jsonify({'json_data': jsonpickle.encode(state.blockchain.chain)})

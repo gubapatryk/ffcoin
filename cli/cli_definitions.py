@@ -4,7 +4,7 @@ from commands.registration import register, broadcast
 from commands.state_util import print_user_peers
 from commands.test_verify import get_name_from_ip
 from commands.wallet import set_up_keys, load_keys
-from commands.blockchain import print_blockchain, add_data_blockchain
+from commands.blockchain import print_blockchain, add_data_blockchain, force_update_blockchain
 
 cli_options = [
   CLIOption("1", "Create key pair", set_up_keys),
@@ -17,7 +17,7 @@ cli_options = [
   CLIOption("7", "(test) Get username by ip and verify", get_name_from_ip),
   CLIOption("8", "Print blockchain", print_blockchain),
   CLIOption("9", "Add data to blockchain", add_data_blockchain),
-  CLIOption("10", "Force update blockchain using other node", add_data_blockchain),
+  CLIOption("10", "Force update blockchain using other node", force_update_blockchain),
   CLIOption("exit", "Exit", lambda _: exit())
 ]
 

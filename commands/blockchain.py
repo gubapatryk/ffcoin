@@ -62,3 +62,8 @@ def is_good_new_blockchain(org_bc,new_bc):
             if new_bc[x-1].calculate_hash() != new_bc[x-1].hash:
                 return False
     return True
+
+def hostile_mode_switch():
+    print("Tryb falszowania blockchainu:")
+    print(state.hostile_mode)
+    return

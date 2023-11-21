@@ -19,4 +19,9 @@ def synch():
 
 @flask_app.route("/synch", methods=["GET"])
 def send_chain():
-  return jsonify({'json_data': jsonpickle.encode(state.blockchain.chain)})
+  if state.hostile_mode:
+    chain = state.blockchain.chain
+    chain[length(chain) - 1].hash = chain[length(chain) - 1].hash + "deadbeef"
+    return jsonify({'json_data': jsonpickle.encode(chain)})
+  else:
+    return jsonify({'json_data': jsonpickle.encode(state.blockchain.chain)})

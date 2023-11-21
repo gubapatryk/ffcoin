@@ -19,10 +19,12 @@ class State:
     self.public_key: "EccKey | None" = None
     self.peers: dict[str, User] = {
       INITIAL_TRUSTED_IP: User(INITIAL_TRUSTED_NAME, INITIAL_TRUSTED_IP),
+      ADDITIONAL_TRUSTED_IP: User(INITIAL_TRUSTED_NAME, ADDITIONAL_TRUSTED_NAME),
       NON_EXISTENT_IP: User(NON_EXISTENT_NAME, NON_EXISTENT_IP)
     }
     self.broadcast_table: dict[str, BroadcastEntry] = dict()
     self.blockchain = Blockchain()
+    self.hostile_mode = False
 
   def get_public_key_as_str(self) -> str:
     return EMPTY_KEY_REPRESENTATION if self.public_key is None else stringify_key(self.public_key)

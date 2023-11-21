@@ -50,7 +50,7 @@ def is_good_new_blockchain(org_bc,new_bc):
             shrt_len = len(new_bc)
         else:
             shrt_len = len(org_bc)
-        for x in range(len(org_bc)-1,shrt_len):
+        for x in range(1,shrt_len):
             print("org hash")
             print(org_bc[x-1].nonce)
             print(org_bc[x-1].hash)
@@ -63,7 +63,8 @@ def is_good_new_blockchain(org_bc,new_bc):
                 return False
     return True
 
-def hostile_mode_switch():
+def hostile_mode_switch(state):
     print("Tryb falszowania blockchainu:")
+    state.hostile_mode = not state.hostile_mode
     print(state.hostile_mode)
     return

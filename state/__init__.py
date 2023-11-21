@@ -8,6 +8,8 @@ from state.broadcast_entry import BroadcastEntry
 from state.user import User, user_from_dict
 from util.key_util import get_public_key_as_str as stringify_key
 
+from state.blockchain import Blockchain
+
 
 class State:
 
@@ -20,6 +22,7 @@ class State:
       NON_EXISTENT_IP: User(NON_EXISTENT_NAME, NON_EXISTENT_IP)
     }
     self.broadcast_table: dict[str, BroadcastEntry] = dict()
+    self.blockchain = Blockchain()
 
   def get_public_key_as_str(self) -> str:
     return EMPTY_KEY_REPRESENTATION if self.public_key is None else stringify_key(self.public_key)

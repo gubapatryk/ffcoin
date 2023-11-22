@@ -37,7 +37,7 @@ def force_update_blockchain(state):
                 new_bc = jsonpickle.decode(res.json()['json_data'])
                 
                 if is_good_new_blockchain(state.blockchain.chain,new_bc):
-                    print("hejze")
+                    print("zaktualizowano blockchain")
                     state.blockchain.chain = new_bc
                     break
             except Exception as e: 
@@ -52,17 +52,9 @@ def is_good_new_blockchain(org_bc,new_bc):
         shrt_len = len(org_bc)
     if len(org_bc) > 1:
         for x in range(1,shrt_len):
-            print("org hash")
-            print(org_bc[x-1].nonce)
-            print(org_bc[x-1].hash)
-            print("new hash")
-            print(new_bc[x-1].nonce)
-            print(new_bc[x-1].hash)
             if org_bc[x-1].hash != new_bc[x-1].hash:
                 return False
             print("ok policz hasze")
-            print(new_bc[x-1].calculate_hash())
-            print(new_bc[x-1].hash)
             if new_bc[x-1].calculate_hash() != new_bc[x-1].hash:
                 return False
     for x in range(shrt_len-1,len(new_bc)):

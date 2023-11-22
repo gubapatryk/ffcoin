@@ -21,7 +21,7 @@ def synch():
 def send_chain():
   if state.hostile_mode:
     chain = state.blockchain.chain
-    chain[len(chain) - 1].hash = chain[len(chain) - 1].hash + "deadbeef"
+    chain[len(chain) - 1].hash = "deadbeef"
     return jsonify({'json_data': jsonpickle.encode(chain)})
   else:
     return jsonify({'json_data': jsonpickle.encode(state.blockchain.chain)})

@@ -58,6 +58,9 @@ def is_good_new_blockchain(org_bc,new_bc):
             if new_bc[x-1].calculate_hash() != new_bc[x-1].hash:
                 return False
     for x in range(shrt_len-1,len(new_bc)):
+        if x-1 > 1:
+            if new_bc[x-2].calculate_hash() != new_bc[x-1].previous_hash:
+                return False
         if new_bc[x-1].calculate_hash() != new_bc[x-1].hash:
             return False
     return True

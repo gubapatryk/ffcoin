@@ -1,3 +1,5 @@
+from copy import copy
+
 from Crypto.PublicKey.ECC import EccKey
 
 from constants import JSON_CONSTANTS, EMPTY_KEY_REPRESENTATION
@@ -28,11 +30,18 @@ class User:
     return self
 
   def to_dict(self):
-    return {
-      JSON_CONSTANTS["PUBLIC_KEY_KEY"]: self.get_public_key_as_str(),
+    out = {
       JSON_CONSTANTS["NAME_KEY"]: self.name,
       JSON_CONSTANTS["IP_KEY"]: self.ip
     }
+    if self.public_key is not None:
+      out[JSON_CONSTANTS["PUBLIC_KEY_KEY"]] = self.get_public_key_as_str()
+    return out
+
+  def self_without_pk(self):
+    out = copy(self)
+    out.public_key = None
+    return out
 
   def __str__(self) -> str:
     return f"name: {self.name}, ip: {self.ip}, public_key: {self.get_public_key_as_str()}"
@@ -47,3 +56,11 @@ def user_from_dict(d: dict) -> User:
     d[JSON_CONSTANTS["IP_KEY"]],
     str_to_public_key_or_none(pub_key_str)
   )
+
+
+def user_from_dict_with_opt_key(d: dict) -> User:
+  return user_from_dict(d) if JSON_CONSTANTS["PUBLIC_KEY_KEY"] in d else User(
+    d[JSON_CONSTANTS["NAME_KEY"]],
+    d[JSON_CONSTANTS["IP_KEY"]]
+  )
+

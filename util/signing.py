@@ -61,5 +61,8 @@ def out_response_to_bytes(response: OutResponse) -> bytes:
   return str_to_bytes(body_str + headers_str)
 
 
-def filter_non_signable_headers(headers):
-  return filter(lambda tpl: tpl[0] not in NON_SIGNABLE_HEADERS, headers.items())
+def filter_non_signable_headers(headers) -> list:
+  filtered_headers = filter(lambda tpl: tpl[0] not in NON_SIGNABLE_HEADERS, headers.items())
+  sorted_headers = list(filtered_headers)
+  sorted_headers.sort(key=lambda tpl: tpl[0])
+  return sorted_headers

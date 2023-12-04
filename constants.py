@@ -30,6 +30,8 @@ HTTP_TIMEOUT = 10
 
 TIMEZONE = timezone(timedelta(hours=0.0))
 
+MINING_AWARD = 30
+
 HTTP_CONSTANTS: dict[str, str] = {
   "SOURCE_IP_HEADER": "source",
   "NAME_HEADER": "name",
@@ -42,7 +44,16 @@ JSON_CONSTANTS: dict[str, str] = {
   "NAME_KEY": "name",
   "IP_KEY": "ip",
   "SOURCE_IP_KEY": "source",
-  "BROADCAST_MESSAGE_ID": "id"
+  "BROADCAST_MESSAGE_ID": "id",
+  "FROM_USER_KEY": "from",
+  "TO_USER_KEY": "to",
+  "TRANSACTION_AMOUNT_KEY": "amount",
+  "TRANSACTION_AWARD_KEY": "award",
+  "BLOCK_TIMESTAMP_KEY": "timestamp",
+  "BLOCK_DATA_KEY": "data",
+  "PREVIOUS_HASH_KEY": "prev",
+  "BLOCK_NONCE_KEY": "nonce",
+  "BLOCK_MINED_BY_KEY": "mined_by"
 }
 
 LOCAL_DATA_CONSTANTS: dict[str, str] = {

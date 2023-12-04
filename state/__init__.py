@@ -2,8 +2,9 @@ import json
 
 from Crypto.PublicKey.ECC import EccKey
 
-from constants import INITIAL_TRUSTED_IP, INITIAL_TRUSTED_NAME, ADDITIONAL_TRUSTED_IP, ADDITIONAL_TRUSTED_NAME, NON_EXISTENT_IP, NON_EXISTENT_NAME, JSON_CONSTANTS, \
-  EMPTY_KEY_REPRESENTATION, LEDGER_PATH, KNOWN_USERS_FILE_NAME, BYTE_ENCODING
+from constants import INITIAL_TRUSTED_IP, INITIAL_TRUSTED_NAME, ADDITIONAL_TRUSTED_IP, ADDITIONAL_TRUSTED_NAME, \
+  NON_EXISTENT_IP, NON_EXISTENT_NAME, JSON_CONSTANTS, \
+  EMPTY_KEY_REPRESENTATION, LEDGER_PATH, KNOWN_USERS_FILE_NAME, BYTE_ENCODING, IP
 from state.broadcast_entry import BroadcastEntry
 from state.user import User, user_from_dict
 from util.key_util import get_public_key_as_str as stringify_key
@@ -19,7 +20,6 @@ class State:
     self.public_key: "EccKey | None" = None
     self.peers: dict[str, User] = {
       INITIAL_TRUSTED_IP: User(INITIAL_TRUSTED_NAME, INITIAL_TRUSTED_IP),
-      ADDITIONAL_TRUSTED_IP: User(INITIAL_TRUSTED_NAME, ADDITIONAL_TRUSTED_NAME),
       NON_EXISTENT_IP: User(NON_EXISTENT_NAME, NON_EXISTENT_IP)
     }
     self.broadcast_table: dict[str, BroadcastEntry] = dict()
@@ -28,6 +28,9 @@ class State:
 
   def get_public_key_as_str(self) -> str:
     return EMPTY_KEY_REPRESENTATION if self.public_key is None else stringify_key(self.public_key)
+
+  def get_last_hash(self) -> str:
+    return self.blockchain.chain[-1].hash
 
   def add_peer(self, ip: str, user: User):
     old_peer: "User | None" = self.peers.get(ip)
@@ -67,6 +70,9 @@ class State:
     print(f"public key: {self.get_public_key_as_str()}")
     for ip, peer in self.peers.items():
       print(peer)
+
+  def as_user(self):
+    return User(self.name, IP, self.public_key)
 
 
 state = State()

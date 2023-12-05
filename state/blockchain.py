@@ -1,3 +1,4 @@
+from util.exception.blockchain_append_exception import BlockchainAppendException
 from .block import Block
 
 class Blockchain:
@@ -12,8 +13,15 @@ class Blockchain:
         new_block = Block(data, self.chain[-1].hash) 
           
         # Difficulty level of 4 
-        new_block.mine_block(4)   
-        self.chain.append(new_block) 
+        new_block.mine_block()
+        self.chain.append(new_block)
+
+    def try_append(self, block: Block):
+        if not block.previous_hash == self.chain[-1].calculate_hash():
+            raise BlockchainAppendException("Attempted to add block with improper prev hash")
+        if not block.is_nonce_correct():
+            raise BlockchainAppendException("Attempted to add block with improper nonce")
+        self.chain.append(block)
 
     def display_blocks(self):
         for block in self.chain:

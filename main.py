@@ -14,6 +14,7 @@ from routes.auth import *
 from routes.greet import *
 from routes.test_sign import *
 from routes.synch import *
+from routes.transaction import *
 
 # blockchainery
 from state.block import Block

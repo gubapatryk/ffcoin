@@ -7,6 +7,7 @@ from random import randint
 import requests
 
 from state import State, User
+from util.broadcast_util import broadcast_id
 from util.signing import try_verify_response
 
 
@@ -43,7 +44,7 @@ def greet_peers(state: State):
 
 
 def broadcast(state: State):
-  msg_id: str = str(int(time())) + str(randint(0, 99999999))
+  msg_id: str = broadcast_id()
   ip: str
   user: User
   for ip, user in state.peers.copy().items():

@@ -1,8 +1,10 @@
+import json
+
 from Crypto.Hash import SHAKE256
 from Crypto.PublicKey.ECC import EccKey
 from Crypto.Signature import eddsa
 from requests import Response as InResponse
-from flask import Response as OutResponse
+from flask import Response as OutResponse, Request
 
 from constants import SIGNATURE_VERIFIER_MODE, HTTP_CONSTANTS, NON_SIGNABLE_HEADERS
 from state import State
@@ -22,6 +24,11 @@ def sign_response(state, resp: OutResponse) -> OutResponse:
   return resp
 
 
+def get_request_signature(state: State, body: dict, headers: dict) -> str:
+  input = str_to_bytes(json.dumps(body) + headers_to_str(headers))
+  return sign(state, input)
+
+
 def verify(pub_key: EccKey, payload: bytes, signature: str):
   hsh = SHAKE256.new(payload)
   verifier = eddsa.new(pub_key, SIGNATURE_VERIFIER_MODE)
@@ -37,6 +44,12 @@ def try_verify(pub_key: EccKey, payload: bytes, signature: str):
     return True
   else:
     raise SignatureException()
+
+
+def verify_request(pub_key: EccKey, request: Request) -> bool:
+  signature = request.headers[HTTP_CONSTANTS["SIGNATURE_HEADER"]]
+  input: bytes = str_to_bytes(request.get_data(as_text=True) + headers_to_str(request.headers))
+  return verify(pub_key, input, signature)
 
 
 def try_verify_response(state: State, ip: str, response: InResponse):
@@ -55,10 +68,14 @@ def in_response_to_bytes(response: InResponse) -> bytes:
 
 def out_response_to_bytes(response: OutResponse) -> bytes:
   body_str = response.get_data(as_text=True)
-  headers_str = ",".join([
-    f"{key}:{value}" for key, value in filter_non_signable_headers(response.headers)
-  ])
+  headers_str = headers_to_str(response.headers)
   return str_to_bytes(body_str + headers_str)
+
+
+def headers_to_str(headers) -> str:
+  return ",".join([
+    f"{key}:{value}" for key, value in filter_non_signable_headers(headers)
+  ])
 
 
 def filter_non_signable_headers(headers) -> list:

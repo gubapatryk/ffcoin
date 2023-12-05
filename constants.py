@@ -31,11 +31,13 @@ HTTP_TIMEOUT = 10
 TIMEZONE = timezone(timedelta(hours=0.0))
 
 MINING_AWARD = 30
+MINING_DIFFICULTY = 1
 
 HTTP_CONSTANTS: dict[str, str] = {
   "SOURCE_IP_HEADER": "source",
   "NAME_HEADER": "name",
   "SIGNATURE_HEADER": "sign",
+  "BROADCAST_ID_HEADER": "b_id"
 }
 
 JSON_CONSTANTS: dict[str, str] = {

@@ -18,6 +18,11 @@ class User:
     self.ip: str = ip
     self.public_key: "EccKey | None" = public_key
 
+  def __eq__(self, other):
+    if isinstance(other, User):
+      return self.name == other.name and self.ip == other.ip
+    return False
+
   def get_public_key_as_str(self) -> str:
     return EMPTY_KEY_REPRESENTATION if self.public_key is None else stringify_key(self.public_key)
 

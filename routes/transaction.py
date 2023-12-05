@@ -6,8 +6,9 @@ from constants import HTTP_CONSTANTS, IP, PORT
 from flask_app import flask_app
 from state import state
 from state.block import block_from_dict
+from util.broadcast_util import broadcast_id
 from util.exception.blockchain_append_exception import BlockchainAppendException
-from util.signing import verify_request
+from util.signing import verify_request, get_request_signature
 
 
 @flask_app.route("/transfer", methods=["POST"])
@@ -49,10 +50,22 @@ def transfer():
       state.blockchain.try_append(block)
       block.mined_by = state.as_user()  # passed to blockchain by reference
       # since we were able to add to local blockchain means we could be first
-      # broadcast successful mining
-      #
-      #
-      #
+      data = block.to_dict()
+      headers = {
+                HTTP_CONSTANTS["SOURCE_IP_HEADER"]: IP,
+                HTTP_CONSTANTS["NAME_HEADER"]: state.name,
+                HTTP_CONSTANTS["BROADCAST_ID_HEADER"]: broadcast_id()
+              }
+      signature = get_request_signature(state, data, headers)
+      headers[HTTP_CONSTANTS["SIGNATURE_HEADER"]] = signature
+      for ip, peer in state.peers.copy().items():
+        if ip != IP:
+          try:
+            requests.post(  # TODO: make it async
+              f"http://{ip}:{PORT}/declare-block", json=data, headers=headers)
+          except (ConnectionError, Timeout, TooManyRedirects):
+            state.remove_peer(ip)
     except BlockchainAppendException as e:
       print(e.msg)
+      return {}
   return {}

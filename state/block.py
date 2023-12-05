@@ -58,7 +58,7 @@ class Block:
       JSON_CONSTANTS["BLOCK_NONCE_KEY"]: self.nonce,
     }
     if self.mined_by is not None:
-      out[JSON_CONSTANTS["BLOCK_MINED_BY_KEY"]] = self.mined_by.to_dict()
+      out[JSON_CONSTANTS["BLOCK_MINED_BY_KEY"]] = self.mined_by.to_dict(with_pk=False)
     return out
 
 

@@ -26,6 +26,7 @@ def commit_transaction(state: State):
   signature = get_request_signature(state, block.to_dict(), headers)
   headers[HTTP_CONSTANTS["SIGNATURE_HEADER"]] = signature
   for ip, user in state.peers.copy().items():
+    # no check if ip != IP - this should allow the host to mine
     try:
       requests.post(
         f"http://{ip}:{PORT}/transfer",
@@ -34,4 +35,4 @@ def commit_transaction(state: State):
       )
     except (ConnectionError, Timeout, TooManyRedirects):
       state.remove_peer(ip)
-  # allow host to mine as well
+  # allow host to mine as well pre-broadcast

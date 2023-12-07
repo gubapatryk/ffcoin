@@ -37,7 +37,7 @@ HTTP_CONSTANTS: dict[str, str] = {
   "SOURCE_IP_HEADER": "source",
   "NAME_HEADER": "name",
   "SIGNATURE_HEADER": "sign",
-  "BROADCAST_ID_HEADER": "b_id"
+  "BROADCAST_ID_HEADER": "b-id"
 }
 
 JSON_CONSTANTS: dict[str, str] = {

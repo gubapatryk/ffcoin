@@ -72,5 +72,10 @@ NON_SIGNABLE_HEADERS: set[str] = {
   "Server",
   "Date",
   "Connection",
+  "User-Agent",
+  "Accept-Encoding",
+  "Accept",
+  "Content-Length",
+  "Content-Type",
   HTTP_CONSTANTS["SIGNATURE_HEADER"]
 }

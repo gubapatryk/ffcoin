@@ -79,6 +79,7 @@ def headers_to_str(headers) -> str:
 
 
 def filter_non_signable_headers(headers) -> list:
+  # refactor this to getting list of signeable headers from headers
   filtered_headers = filter(lambda tpl: tpl[0] not in NON_SIGNABLE_HEADERS, headers.items())
   sorted_headers = list(filtered_headers)
   sorted_headers.sort(key=lambda tpl: tpl[0])

@@ -16,6 +16,7 @@ def transfer():
   direct_source_ip = request.remote_addr
   data: dict = request.get_json()
   headers: dict = request.headers
+  print(headers)
   message_id = headers[HTTP_CONSTANTS["BROADCAST_ID_HEADER"]]
   original_source_ip = headers[HTTP_CONSTANTS["SOURCE_IP_HEADER"]]
   original_name = headers[HTTP_CONSTANTS["NAME_HEADER"]]

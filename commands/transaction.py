@@ -31,7 +31,7 @@ def commit_transaction(state: State):
       requests.post(
         f"http://{ip}:{PORT}/transfer",
         headers=headers,
-        json=block
+        json=block.to_dict()
       )
     except (ConnectionError, Timeout, TooManyRedirects):
       state.remove_peer(ip)

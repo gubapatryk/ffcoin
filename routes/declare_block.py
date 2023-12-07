@@ -10,7 +10,7 @@ from util.exception.blockchain_append_exception import BlockchainAppendException
 
 
 @flask_app.route("/declare-block", methods=["POST"])
-def transfer():
+def declare_block():
   data: dict = request.get_json()
   headers: dict = request.headers
   source_ip = headers[HTTP_CONSTANTS["SOURCE_IP_HEADER"]]

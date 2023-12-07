@@ -39,7 +39,7 @@ class User:
       JSON_CONSTANTS["NAME_KEY"]: self.name,
       JSON_CONSTANTS["IP_KEY"]: self.ip
     }
-    if self.public_key is not None and with_pk:
+    if with_pk:
       out[JSON_CONSTANTS["PUBLIC_KEY_KEY"]] = self.get_public_key_as_str()
     return out
 

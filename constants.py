@@ -31,7 +31,9 @@ HTTP_TIMEOUT = 10
 TIMEZONE = timezone(timedelta(hours=0.0))
 
 MINING_AWARD = 30
+INITIAL_BALANCE = 100
 MINING_DIFFICULTY = 1
+VOID_HASH_PTR = "<NO PREVIOUS HASH>"
 
 HTTP_CONSTANTS: dict[str, str] = {
   "SOURCE_IP_HEADER": "source",
@@ -55,7 +57,8 @@ JSON_CONSTANTS: dict[str, str] = {
   "BLOCK_DATA_KEY": "data",
   "PREVIOUS_HASH_KEY": "prev",
   "BLOCK_NONCE_KEY": "nonce",
-  "BLOCK_MINED_BY_KEY": "mined_by"
+  "BLOCK_MINED_BY_KEY": "mined_by",
+  "GENESIS_BLOCK_COMMENT": "comment"
 }
 
 LOCAL_DATA_CONSTANTS: dict[str, str] = {

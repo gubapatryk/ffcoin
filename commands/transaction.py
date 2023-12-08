@@ -25,6 +25,10 @@ def commit_transaction(state: State):
           }
   signature = get_request_signature(state, block.to_dict(), headers)
   headers[HTTP_CONSTANTS["SIGNATURE_HEADER"]] = signature
+  print("transaction block hash (still command)")
+  print(block.calculate_hash())
+  print("transaction block - pre sent")
+  print(block.to_dict())
   for ip, user in state.peers.copy().items():
     # no check if ip != IP - this should allow the host to mine
     try:

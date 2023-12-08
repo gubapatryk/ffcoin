@@ -47,7 +47,7 @@ def transfer():
           state.remove_peer(ip)
     block.mine_block()
     try:
-      print("appended block")
+      print("appended block (transfer)")
       print(block.to_dict())
       state.print_state()
       state.blockchain.try_append(block)

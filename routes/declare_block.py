@@ -26,7 +26,7 @@ def declare_block():
     return {}
   block = block_from_dict(data)
   try:
-    print("appended block")
+    print("appended block (declare-block)")
     print(block.to_dict())
     state.print_state()
     state.blockchain.try_append(block)

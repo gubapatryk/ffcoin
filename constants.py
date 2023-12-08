@@ -34,10 +34,10 @@ MINING_DIFFICULTY = 1
 VOID_HASH_PTR = "<NO PREVIOUS HASH>"
 
 HTTP_CONSTANTS: dict[str, str] = {
-  "SOURCE_IP_HEADER": "source",
-  "NAME_HEADER": "name",
-  "SIGNATURE_HEADER": "sign",
-  "BROADCAST_ID_HEADER": "b-id"
+  "SOURCE_IP_HEADER": "Source",
+  "NAME_HEADER": "Name",
+  "SIGNATURE_HEADER": "Sign",
+  "BROADCAST_ID_HEADER": "B-Id"
 }
 
 JSON_CONSTANTS: dict[str, str] = {

@@ -28,7 +28,7 @@ class State:
     return EMPTY_KEY_REPRESENTATION if self.public_key is None else stringify_key(self.public_key)
 
   def get_last_hash(self) -> str:
-    return self.blockchain.chain[-1].hash
+    return self.blockchain.chain[-1].calculate_hash()
 
   def add_peer(self, ip: str, user: User):
     old_peer: "User | None" = self.peers.get(ip)

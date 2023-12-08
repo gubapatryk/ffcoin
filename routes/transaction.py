@@ -49,6 +49,8 @@ def transfer():
     try:
       print("appended block (transfer)")
       print(block.to_dict())
+      print("last block hash")
+      print(state.get_last_hash())
       state.print_state()
       state.blockchain.try_append(block)
       block.mined_by = state.as_user()  # passed to blockchain by reference

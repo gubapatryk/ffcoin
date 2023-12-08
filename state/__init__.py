@@ -68,6 +68,7 @@ class State:
     print(f"public key: {self.get_public_key_as_str()}")
     for ip, peer in self.peers.items():
       print(peer)
+    self.blockchain.display_blocks()
 
   def as_user(self):
     return User(self.name, IP, self.public_key)

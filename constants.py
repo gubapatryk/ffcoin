@@ -77,5 +77,6 @@ NON_SIGNABLE_HEADERS: set[str] = {
   "Accept",
   "Content-Length",
   "Content-Type",
+  "Host",
   HTTP_CONSTANTS["SIGNATURE_HEADER"]
 }

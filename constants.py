@@ -1,5 +1,4 @@
 from datetime import timezone, timedelta
-import time
 
 ENFORCE_PASSWORD_STRENGTH = False
 
@@ -33,7 +32,7 @@ MINING_AWARD = 30
 INITIAL_BALANCE = 100
 MINING_DIFFICULTY = 1
 VOID_HASH_PTR = "<NO PREVIOUS HASH>"
-GENESIS_BLOCK_TIMESTAMP = time.time()
+GENESIS_BLOCK_TIMESTAMP = -1.0
 
 HTTP_CONSTANTS: dict[str, str] = {
   "SOURCE_IP_HEADER": "Source",

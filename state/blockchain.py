@@ -1,4 +1,4 @@
-from constants import VOID_HASH_PTR
+from constants import VOID_HASH_PTR, GENESIS_BLOCK_TIMESTAMP
 from util.exception.blockchain_append_exception import BlockchainAppendException
 from .block import Block
 from .genesis_block import GenesisTransaction
@@ -9,7 +9,7 @@ class Blockchain:
     self.chain = [self.create_genesis_block()]
 
   def create_genesis_block(self):
-    return Block(GenesisTransaction(), VOID_HASH_PTR)
+    return Block(GenesisTransaction(), VOID_HASH_PTR, t=GENESIS_BLOCK_TIMESTAMP)
 
   def add_block_with_data(self, data):
     new_block = Block(data, self.chain[-1].hash)

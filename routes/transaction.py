@@ -47,6 +47,9 @@ def transfer():
           state.remove_peer(ip)
     block.mine_block()
     try:
+      print("appended block")
+      print(block.to_dict())
+      state.print_state()
       state.blockchain.try_append(block)
       block.mined_by = state.as_user()  # passed to blockchain by reference
       # since we were able to add to local blockchain means we could be first

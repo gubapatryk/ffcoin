@@ -22,7 +22,6 @@ class Block:
     return False
 
   def calculate_hash(self):
-    print("calculating hash of block")
     sha = hashlib.sha256()
     sha.update(str(self.timestamp).encode('utf-8') +
       str(self.data.to_dict()).encode('utf-8') +

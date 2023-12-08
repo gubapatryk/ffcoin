@@ -19,6 +19,7 @@ class Blockchain:
     self.chain.append(new_block)
 
   def try_append(self, block: Block):
+    print("calculating hash of block")
     if not block.previous_hash == self.chain[-1].calculate_hash():
       raise BlockchainAppendException("Attempted to add block with improper prev hash")
     if not block.is_nonce_correct():

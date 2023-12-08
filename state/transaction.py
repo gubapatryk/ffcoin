@@ -17,8 +17,8 @@ class Transaction:
 
   def to_dict(self) -> dict:
     return {
-      JSON_CONSTANTS["FROM_USER_KEY"]: self.from_user.to_dict(),
-      JSON_CONSTANTS["TO_USER_KEY"]: self.to_user.to_dict(),
+      JSON_CONSTANTS["FROM_USER_KEY"]: self.from_user.to_dict(with_pk=False),
+      JSON_CONSTANTS["TO_USER_KEY"]: self.to_user.to_dict(with_pk=False),
       JSON_CONSTANTS["TRANSACTION_AMOUNT_KEY"]: self.amount,
       JSON_CONSTANTS["TRANSACTION_AWARD_KEY"]: self.award,
     }

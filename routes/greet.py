@@ -43,19 +43,15 @@ def broadcast():
   message_id = data[JSON_CONSTANTS["BROADCAST_MESSAGE_ID"]]
   original_source_ip = data[JSON_CONSTANTS["SOURCE_IP_KEY"]]
   original_name = data[JSON_CONSTANTS["NAME_KEY"]]
-  print(f"received broadcast message {data}")
   if message_id not in state.broadcast_table:
-    print("message_id not in broadcast_table")
     greeter_user = User(original_name, original_source_ip)
     state.add_peer(original_source_ip, greeter_user)
     for ip, peer in state.peers.copy().items():
       if ip != IP and ip != direct_source_ip and ip != original_source_ip:
-        print(f"broadcast to {ip}")
         try:
           requests.post(  # TODO: make it async
             f"http://{ip}:{PORT}/broadcast", json=data
           )
-          print("finished broadcast")
         except (ConnectionError, Timeout, TooManyRedirects):
           state.remove_peer(ip)
     try:
@@ -66,7 +62,6 @@ def broadcast():
           JSON_CONSTANTS["NAME_KEY"]: state.name
         }
       )
-      print("finished poking")
     except (ConnectionError, Timeout, TooManyRedirects):
       state.remove_peer(original_source_ip)
   state.save_peers_to_file()

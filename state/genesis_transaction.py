@@ -20,7 +20,6 @@ class GenesisTransaction:
     }
 
   def calculate_hash(self):
-    print("calculating hash of genesis")
     sha = hashlib.sha256()
     sha.update(str(self.amount).encode('utf-8') +
                str(self.comment).encode('utf-8'))

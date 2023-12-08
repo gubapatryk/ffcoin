@@ -1,7 +1,7 @@
 from constants import VOID_HASH_PTR, GENESIS_BLOCK_TIMESTAMP
 from util.exception.blockchain_append_exception import BlockchainAppendException
 from .block import Block
-from .genesis_block import GenesisTransaction
+from .genesis_transaction import GenesisTransaction
 
 
 class Blockchain:
@@ -19,7 +19,6 @@ class Blockchain:
     self.chain.append(new_block)
 
   def try_append(self, block: Block):
-    print("calculating hash of block")
     if not block.previous_hash == self.chain[-1].calculate_hash():
       raise BlockchainAppendException("Attempted to add block with improper prev hash")
     if not block.is_nonce_correct():

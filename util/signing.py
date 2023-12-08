@@ -25,11 +25,6 @@ def sign_response(state, resp: OutResponse) -> OutResponse:
 
 
 def get_request_signature(state: State, body: dict, headers: dict) -> str:
-  print("getting signature")
-  print("body")
-  print(json.dumps(body))
-  print("headers")
-  print(headers_to_str(headers))
   input = str_to_bytes(json.dumps(body) + headers_to_str(headers))
   return sign(state, input)
 
@@ -52,11 +47,6 @@ def try_verify(pub_key: EccKey, payload: bytes, signature: str):
 
 
 def verify_request(pub_key: EccKey, request: Request) -> bool:
-  print("getting signature")
-  print("body")
-  print(request.get_data(as_text=True))
-  print("headers")
-  print(headers_to_str(request.headers))
   signature = request.headers[HTTP_CONSTANTS["SIGNATURE_HEADER"]]
   input: bytes = str_to_bytes(request.get_data(as_text=True) + headers_to_str(request.headers))
   return verify(pub_key, input, signature)

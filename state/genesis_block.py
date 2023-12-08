@@ -1,3 +1,5 @@
+import hashlib
+
 from constants import JSON_CONSTANTS, INITIAL_BALANCE
 
 
@@ -16,3 +18,10 @@ class GenesisBlock:
       JSON_CONSTANTS["TRANSACTION_AMOUNT_KEY"]: self.amount,
       JSON_CONSTANTS["GENESIS_BLOCK_COMMENT"]: self.comment,
     }
+
+  def calculate_hash(self):
+    print("calculating hash of genesis")
+    sha = hashlib.sha256()
+    sha.update(str(self.amount).encode('utf-8') +
+               str(self.comment).encode('utf-8'))
+    return str(sha.hexdigest())

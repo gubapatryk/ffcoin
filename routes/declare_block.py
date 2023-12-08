@@ -26,6 +26,9 @@ def declare_block():
     return {}
   block = block_from_dict(data)
   try:
+    print("appended block")
+    print(block.to_dict())
+    state.print_state()
     state.blockchain.try_append(block)
   except BlockchainAppendException as e:  # maybe we still should broadcast even if block cannot be added
     print(e.msg)

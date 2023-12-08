@@ -51,6 +51,8 @@ def transfer():
       print(block.to_dict())
       print("appended block hash")
       print(block.calculate_hash())
+      print("last block")
+      print(state.blockchain.chain[-1].to_dict())
       print("last block hash")
       print(state.get_last_hash())
       state.print_state()

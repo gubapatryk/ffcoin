@@ -8,7 +8,7 @@ from state.user import user_from_dict_with_opt_key
 
 
 class Block:
-  def __init__(self, data, previous_hash, t=None, nonce=0, mined_by=None):
+  def __init__(self, data, previous_hash, t=None, nonce=0, mined_by=None, balances=None):
     self.timestamp = time.time() if t is None else t
     self.data = data
     self.previous_hash = previous_hash
@@ -75,5 +75,5 @@ def block_from_dict(d: dict) -> Block:
   balances = d.get(JSON_CONSTANTS["BALANCES"])
   balances = None if balances is None else d.get(JSON_CONSTANTS["BALANCES"])
 
-  return Block(transaction_from_dict(transaction_d), prev_hash, tmstmp, nonce, mined_by)
+  return Block(transaction_from_dict(transaction_d), prev_hash, tmstmp, nonce, mined_by, balances)
 

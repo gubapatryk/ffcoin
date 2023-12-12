@@ -50,6 +50,7 @@ def transfer():
       state.blockchain.try_append(block)
       block.mined_by = state.as_user()  # passed to blockchain by reference
       # since we were able to add to local blockchain means we could be first
+      block.balances = [ {block.data.from_user : -block.data.amount }, {block.data.to_user : block.data.amount }, {block.mined_by : block.data.award }]
       data = block.to_dict()
       headers = {
                 HTTP_CONSTANTS["SOURCE_IP_HEADER"]: IP,

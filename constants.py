@@ -57,7 +57,7 @@ JSON_CONSTANTS: dict[str, str] = {
   "PREVIOUS_HASH_KEY": "prev",
   "BLOCK_NONCE_KEY": "nonce",
   "BLOCK_MINED_BY_KEY": "mined_by",
-  "BLOCK_BALANCE_SNAP_KEY": "balance_snap",
+  "BLOCK_BALANCES_KEY": "balances",
   "GENESIS_BLOCK_COMMENT": "comment"
 }
 

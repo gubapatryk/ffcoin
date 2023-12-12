@@ -15,6 +15,7 @@ class Block:
     self.nonce = nonce
     self.hash = self.calculate_hash()
     self.mined_by = mined_by
+    self.balances = mined_by
 
   def __eq__(self, other):
     if isinstance(other, Block):
@@ -58,6 +59,8 @@ class Block:
     }
     if self.mined_by is not None:
       out[JSON_CONSTANTS["BLOCK_MINED_BY_KEY"]] = self.mined_by.to_dict(with_pk=False)
+    if self.balances is not None:
+      out[JSON_CONSTANTS["BALANCES"]] = self.balances.to_dict(with_pk=False)
     return out
 
 
@@ -69,6 +72,8 @@ def block_from_dict(d: dict) -> Block:
   nonce = 0 if nonce is None else nonce
   mined_by = d.get(JSON_CONSTANTS["BLOCK_MINED_BY_KEY"])
   mined_by = None if mined_by is None else user_from_dict_with_opt_key(mined_by)
+  balances = d.get(JSON_CONSTANTS["BALANCES"])
+  balances = None if balances is None else d.get(JSON_CONSTANTS["BALANCES"])
 
   return Block(transaction_from_dict(transaction_d), prev_hash, tmstmp, nonce, mined_by)
 

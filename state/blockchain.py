@@ -30,3 +30,9 @@ class Blockchain:
     for block in self.chain:
         print(block.to_dict())
         print("-" * 30)
+
+  def print_filtered(self):
+    print("-" * 30)
+    for block in self.chain:
+        print(block.mined_by)
+        print("-" * 30)

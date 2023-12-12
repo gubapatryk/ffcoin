@@ -22,7 +22,7 @@ INITIAL_TRUSTED_NAME = "30"
 NON_EXISTENT_IP = "192.168.195.100"
 NON_EXISTENT_NAME = ":^]"
 
-IP = "0.0.0.0"
+IP = "192.168.195.30"
 PORT = "1939"
 HTTP_TIMEOUT = 10
 
@@ -57,6 +57,7 @@ JSON_CONSTANTS: dict[str, str] = {
   "PREVIOUS_HASH_KEY": "prev",
   "BLOCK_NONCE_KEY": "nonce",
   "BLOCK_MINED_BY_KEY": "mined_by",
+  "BLOCK_BALANCE_SNAP_KEY": "balance_snap",
   "GENESIS_BLOCK_COMMENT": "comment"
 }
 

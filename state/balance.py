@@ -1,10 +1,13 @@
 from constants import INITIAL_BALANCE
-from state import Blockchain, User
+from state import User
 from state.block import Block
 from util.exception.balnce_insufficient_funds_exception import BalanceInsufficientFundsException
 
 
 class Balance:
+
+  from state import Blockchain
+
   def __init__(self, blockchain: Blockchain):
     self.balance: dict[str, BalanceEntry] = dict()
     for block in blockchain.chain:

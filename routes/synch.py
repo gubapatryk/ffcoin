@@ -1,12 +1,9 @@
 import jsonpickle 
 from flask import jsonify
 from state import state
-import requests
-from requests.exceptions import Timeout, TooManyRedirects, ConnectionError
 
-from constants import HTTP_CONSTANTS, PORT, JSON_CONSTANTS, IP
 from flask_app import flask_app
-from flask import request, Response
+from flask import request
 
 from commands.blockchain import is_good_new_blockchain
 

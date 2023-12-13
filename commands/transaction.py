@@ -14,7 +14,6 @@ from util.signing import get_request_signature
 def commit_transaction(state: State):
   ip = input("Transaction to: ").strip()
   amount = float(input("Amount: ").strip())
-  # verify if has enough funds
   balance = state.get_self_balance()
   if balance.balance - amount < 0.0:
     raise TransactionInsufficientFundsException(balance, amount)

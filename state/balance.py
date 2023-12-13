@@ -5,9 +5,7 @@ from util.exception.balnce_insufficient_funds_exception import BalanceInsufficie
 
 class Balance:
 
-  from state import Blockchain, User
-
-  def __init__(self, blockchain: Blockchain):
+  def __init__(self, blockchain):
     self.balance: dict[str, BalanceEntry] = dict()
     for block in blockchain.chain:
       if not block.is_genesis():
@@ -25,7 +23,7 @@ class Balance:
     self.upsert_balance_entry(block.data.from_user, -block.data.amount)
     self.upsert_balance_entry(block.data.to_user, block.data.amount)
 
-  def upsert_balance_entry(self, user: User, amount: float) -> dict:
+  def upsert_balance_entry(self, user, amount: float) -> dict:
     current_balance: BalanceEntry = self.balance.get(user.ip)
     amount = amount + INITIAL_BALANCE if current_balance is None else current_balance.balance + amount
     if amount < 0.0:
@@ -36,8 +34,6 @@ class Balance:
 
 class BalanceEntry:
 
-  from state import User
-
-  def __init__(self, user: User, balance: float):
+  def __init__(self, user, balance: float):
     self.user = user
     self.balance = balance

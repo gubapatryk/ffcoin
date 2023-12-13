@@ -13,7 +13,7 @@ class Balance:
 
   def __str__(self):
     out = "\n".join(map(lambda entry: f"{entry.user.name}: {entry.balance}", self.balance.values()))
-    out = out + f"Every other user has {INITIAL_BALANCE}"
+    out = out + f"\nEvery other user has {INITIAL_BALANCE}"
     return out
 
   def upsert_block(self, block: Block):

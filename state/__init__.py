@@ -2,9 +2,13 @@ import json
 
 from constants import INITIAL_TRUSTED_IP, INITIAL_TRUSTED_NAME, \
   NON_EXISTENT_IP, NON_EXISTENT_NAME, JSON_CONSTANTS, \
-  EMPTY_KEY_REPRESENTATION, LEDGER_PATH, KNOWN_USERS_FILE_NAME, BYTE_ENCODING, IP
+  EMPTY_KEY_REPRESENTATION, LEDGER_PATH, KNOWN_USERS_FILE_NAME, BYTE_ENCODING, IP, INITIAL_BALANCE
+from state.balance import Balance, BalanceEntry
+from state.block import Block
 from state.broadcast_entry import BroadcastEntry
 from state.user import User, user_from_dict
+from util.exception.balnce_insufficient_funds_exception import BalanceInsufficientFundsException
+from util.exception.improper_transfer_exception import ImproperTransferException
 from util.key_util import get_public_key_as_str as stringify_key
 
 from state.blockchain import Blockchain
@@ -43,6 +47,16 @@ class State:
       print(f"Removing user {ip} due to connection error")
     self.peers.pop(ip)
 
+  def calculate_balances(self) -> Balance:
+    return Balance(self.blockchain)
+
+  def get_self_balance(self) -> BalanceEntry:
+    self_balance = self.calculate_balances().balance.get(IP)
+    return self_balance if self_balance is not None else BalanceEntry(self.as_user(), INITIAL_BALANCE)
+
+  def try_can_block_be_added_to_blockchain(self, block: Block) -> None:
+    self.blockchain.try_can_block_be_added_to_blockchain(block)
+
   def add_broadcast_entry(self, id: str):
     self.broadcast_table[id] = BroadcastEntry(id)
     return self
@@ -69,6 +83,8 @@ class State:
     for ip, peer in self.peers.items():
       print(peer)
     self.blockchain.display_blocks()
+    print("Balance")
+    print(self.calculate_balances())
 
   def as_user(self):
     return User(self.name, IP, self.public_key)

@@ -2,7 +2,7 @@ import hashlib
 import time
 from random import randint
 
-from constants import JSON_CONSTANTS, MINING_DIFFICULTY
+from constants import JSON_CONSTANTS, MINING_DIFFICULTY, VOID_HASH_PTR
 from state.transaction import transaction_from_dict
 from state.user import user_from_dict_with_opt_key
 
@@ -22,18 +22,21 @@ class Block:
       return self.timestamp == other.timestamp and self.previous_hash == other.previous_hash and self.data == other.data
     return False
 
+  def is_genesis(self):
+    return self.previous_hash == VOID_HASH_PTR
+
   def calculate_hash(self):
     sha = hashlib.sha256()
     sha.update(str(self.timestamp).encode('utf-8') +
-      str(self.data.to_dict()).encode('utf-8') +
-      str(self.previous_hash).encode('utf-8') +
-      str(self.nonce).encode('utf-8'))
+               str(self.data.to_dict()).encode('utf-8') +
+               str(self.previous_hash).encode('utf-8') +
+               str(self.nonce).encode('utf-8'))
     return str(sha.hexdigest())
 
   def mine_block(self, difficulty=MINING_DIFFICULTY):
 
     retries = 0
-    max_range = 2**24
+    max_range = 2 ** 24
     self.nonce = randint(0, max_range)
     self.hash = self.calculate_hash()
 
@@ -76,4 +79,3 @@ def block_from_dict(d: dict) -> Block:
   balances = None if balances is None else d.get(JSON_CONSTANTS["BALANCES"])
 
   return Block(transaction_from_dict(transaction_d), prev_hash, tmstmp, nonce, mined_by, balances)
-

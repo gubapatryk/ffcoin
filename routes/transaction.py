@@ -7,7 +7,9 @@ from flask_app import flask_app
 from state import state
 from state.block import block_from_dict
 from util.broadcast_util import broadcast_id
+from util.exception.balnce_insufficient_funds_exception import BalanceInsufficientFundsException
 from util.exception.blockchain_append_exception import BlockchainAppendException
+from util.exception.improper_transfer_exception import ImproperTransferException
 from util.signing import verify_request, get_request_signature
 
 
@@ -31,6 +33,7 @@ def transfer():
     print("The signature of received transfer is invalid")
     return "The signature of received transfer is invalid", 403
   block = block_from_dict(data)
+  state.try_can_block_be_added_to_blockchain(block)
   # end of prep
   if message_id not in state.broadcast_table:
     for ip, peer in state.peers.copy().items():

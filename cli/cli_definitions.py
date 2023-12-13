@@ -17,7 +17,7 @@ cli_options = [
   CLIOption("6", "List users whose keys you have", list_users_with_key),
   CLIOption("7", "(test) Get username by ip and verify", get_name_from_ip),
   CLIOption("8", "Print blockchain", print_blockchain),
-  CLIOption("9", "Add data to blockchain", add_data_blockchain),
+  CLIOption("9", "[deprecated] Add data to blockchain", add_data_blockchain),
   CLIOption("10", "Force update blockchain using other node", force_update_blockchain),
   CLIOption("11", "Switch hostile mode", hostile_mode_switch),
   CLIOption("12", "Transaction", commit_transaction),

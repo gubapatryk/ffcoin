@@ -36,7 +36,7 @@ class Balance:
 
 class BalanceEntry:
 
-  from state import Blockchain, User
+  from state import User
 
   def __init__(self, user: User, balance: float):
     self.user = user

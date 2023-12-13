@@ -29,7 +29,7 @@ def commit_transaction(state: State):
           }
   signature = get_request_signature(state, block.to_dict(), headers)
   headers[HTTP_CONSTANTS["SIGNATURE_HEADER"]] = signature
-  for ip, user in state.peers.copy().items():
+  for ip, user in state.get_peers_list():
     # no check if ip != IP - this should allow the host to mine
     try:
       requests.post(

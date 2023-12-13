@@ -31,10 +31,10 @@ class Blockchain:
 
   def try_can_block_be_added_to_blockchain(self, block: Block) -> None:
     try:
-      hypothetical_balance = Balance(self)
+      hypothetical_balance = Balance(self.chain)
       hypothetical_balance.upsert_block(block)
     except BalanceInsufficientFundsException as e:
-      balance = Balance(self)  # yes this is reretardere
+      balance = Balance(self.chain)  # yes this is reretardere
       raise ImproperTransferException(balance, block) from e
 
   def display_blocks(self):

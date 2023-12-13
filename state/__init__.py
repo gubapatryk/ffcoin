@@ -50,7 +50,7 @@ class State:
     self.peers.pop(ip)
 
   def calculate_balances(self) -> Balance:
-    return Balance(self.blockchain)
+    return Balance(self.blockchain.chain)
 
   def get_self_balance(self) -> BalanceEntry:
     self_balance = self.calculate_balances().balance.get(IP)

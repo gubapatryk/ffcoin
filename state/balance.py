@@ -5,9 +5,9 @@ from util.exception.balnce_insufficient_funds_exception import BalanceInsufficie
 
 class Balance:
 
-  def __init__(self, blockchain):
+  def __init__(self, blockchain: list[Block]):
     self.balance: dict[str, BalanceEntry] = dict()
-    for block in blockchain.chain:
+    for block in blockchain:
       if not block.is_genesis():
         self.upsert_block(block)
 

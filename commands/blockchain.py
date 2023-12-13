@@ -1,5 +1,4 @@
-from state import state, Balance
-import json
+from state import Balance
 import requests
 from constants import PORT, IP
 import jsonpickle

@@ -1,10 +1,13 @@
 from constants import JSON_CONSTANTS
 from state.user import user_from_dict_with_opt_key
+from util.exception.illegal_transaction_exception import IllegalTransactionException
 
 
 class Transaction:
 
   def __init__(self, from_user, to_user, amount: float, award: float):
+    if amount <= 0.0:
+      raise IllegalTransactionException(amount)
     self.from_user = from_user
     self.to_user = to_user
     self.amount = amount

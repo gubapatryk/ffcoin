@@ -4,9 +4,7 @@ from state.user import user_from_dict_with_opt_key
 
 class Transaction:
 
-  from state import User
-
-  def __init__(self, from_user: User, to_user: User, amount: float, award: float):
+  def __init__(self, from_user, to_user, amount: float, award: float):
     self.from_user = from_user
     self.to_user = to_user
     self.amount = amount

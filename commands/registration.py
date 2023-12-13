@@ -1,9 +1,7 @@
 import json
 
 from requests.exceptions import Timeout, TooManyRedirects, ConnectionError
-from time import time
 from constants import PORT, IP, HTTP_CONSTANTS, JSON_CONSTANTS
-from random import randint
 import requests
 
 from state import State, User

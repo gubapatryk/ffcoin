@@ -16,7 +16,7 @@ def add_data_blockchain(state):
     state.blockchain.add_block_with_data(data)
     decision = input("Broadcast block?(type <yes> to send): ").strip()
     if decision == "yes":
-        for ip, peer in state.peers.copy().items():
+        for ip, peer in state.get_peers_list():
             print(ip)
             try:
                 print(jsonpickle.encode(state.blockchain.chain))
@@ -30,7 +30,7 @@ def add_data_blockchain(state):
 
 
 def force_update_blockchain(state):
-    for ip, peer in state.peers.copy().items():
+    for ip, peer in state.get_peers_list():
             if ip != IP:
                 try:
                     res = requests.get(

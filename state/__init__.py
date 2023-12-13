@@ -7,11 +7,10 @@ from state.balance import Balance, BalanceEntry
 from state.block import Block
 from state.broadcast_entry import BroadcastEntry
 from state.user import User, user_from_dict
-from util.exception.balnce_insufficient_funds_exception import BalanceInsufficientFundsException
-from util.exception.improper_transfer_exception import ImproperTransferException
 from util.key_util import get_public_key_as_str as stringify_key
 
 from state.blockchain import Blockchain
+from util.state_util import parse_peer_list
 
 
 class State:
@@ -33,6 +32,9 @@ class State:
 
   def get_last_hash(self) -> str:
     return self.blockchain.chain[-1].calculate_hash()
+
+  def get_peers_list(self):
+    return parse_peer_list(list(self.peers.copy().items()))
 
   def add_peer(self, ip: str, user: User):
     old_peer: "User | None" = self.peers.get(ip)

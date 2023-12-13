@@ -30,7 +30,7 @@ def declare_block():
   except BlockchainAppendException as e:  # maybe we still should broadcast even if block cannot be added
     print(e.msg)
     return {}
-  for ip, peer in state.peers.copy().items():
+  for ip, peer in state.get_peers_list():
     if ip != IP:
       try:
         requests.post(  # TODO: make it async

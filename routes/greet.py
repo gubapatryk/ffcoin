@@ -19,7 +19,7 @@ def greet():
   direct_source_ip = request.remote_addr
   out = greet_outcome(state)
   if original_source_ip not in state.peers.keys() and direct_source_ip not in state.peers.keys():
-    for ip, peer in state.peers.copy().items():
+    for ip, peer in state.get_peers_list():
       if ip != IP:
         try:
           requests.post(  # TODO: make it async
@@ -46,7 +46,7 @@ def broadcast():
   if message_id not in state.broadcast_table:
     greeter_user = User(original_name, original_source_ip)
     state.add_peer(original_source_ip, greeter_user)
-    for ip, peer in state.peers.copy().items():
+    for ip, peer in state.get_peers_list():
       if ip != IP and ip != direct_source_ip and ip != original_source_ip:
         try:
           requests.post(  # TODO: make it async
@@ -87,7 +87,7 @@ def greet_outcome(state: State):
   }]
 
   peer: User
-  for ip, peer in state.peers.copy().items():
+  for ip, peer in state.get_peers_list():
     out.append({
       JSON_CONSTANTS["IP_KEY"]: ip,
       JSON_CONSTANTS["NAME_KEY"]: peer.name

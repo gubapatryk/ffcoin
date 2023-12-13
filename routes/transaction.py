@@ -34,7 +34,7 @@ def transfer():
   state.try_can_block_be_added_to_blockchain(block)
   # end of prep
   if message_id not in state.broadcast_table:
-    for ip, peer in state.peers.copy().items():
+    for ip, peer in state.get_peers_list():
       if ip != IP and ip != direct_source_ip and ip != original_source_ip:
         try:
           requests.post(  # TODO: make it async
@@ -59,7 +59,7 @@ def transfer():
               }
       signature = get_request_signature(state, data, headers)
       headers[HTTP_CONSTANTS["SIGNATURE_HEADER"]] = signature
-      for ip, peer in state.peers.copy().items():
+      for ip, peer in state.get_peers_list():
         if ip != IP:
           try:
             requests.post(  # TODO: make it async

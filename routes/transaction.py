@@ -7,9 +7,7 @@ from flask_app import flask_app
 from state import state
 from state.block import block_from_dict
 from util.broadcast_util import broadcast_id
-from util.exception.balnce_insufficient_funds_exception import BalanceInsufficientFundsException
 from util.exception.blockchain_append_exception import BlockchainAppendException
-from util.exception.improper_transfer_exception import ImproperTransferException
 from util.signing import verify_request, get_request_signature
 
 
@@ -53,7 +51,6 @@ def transfer():
       state.blockchain.try_append(block)
       block.mined_by = state.as_user()  # passed to blockchain by reference
       # since we were able to add to local blockchain means we could be first
-      block.balances = [ {block.data.from_user : -block.data.amount }, {block.data.to_user : block.data.amount }, {block.mined_by : block.data.award }]
       data = block.to_dict()
       headers = {
                 HTTP_CONSTANTS["SOURCE_IP_HEADER"]: IP,

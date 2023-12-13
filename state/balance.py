@@ -17,8 +17,10 @@ class Balance:
     return out
 
   def upsert_block(self, block: Block):
-    assert (block.mined_by.ip != block.data.from_user.ip != block.data.to_user.ip)
-    if block.mined_by is not None:
+    if block.mined_by is None:
+      assert (block.data.from_user.ip != block.data.to_user.ip)
+    else:
+      assert (block.mined_by.ip != block.data.from_user.ip != block.data.to_user.ip)
       self.upsert_balance_entry(block.mined_by, block.data.award)
     self.upsert_balance_entry(block.data.from_user, -block.data.amount)
     self.upsert_balance_entry(block.data.to_user, block.data.amount)

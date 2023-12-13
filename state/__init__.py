@@ -34,10 +34,6 @@ class State:
     return self.blockchain.chain[-1].calculate_hash()
 
   def get_peers_list(self):
-    print(self.peers)
-    print(self.peers.copy().items())
-    print(list(self.peers.copy().items()))
-    print(parse_peer_list(list(self.peers.copy().items())))
     return parse_peer_list(list(self.peers.copy().items()))
 
   def add_peer(self, ip: str, user: User):

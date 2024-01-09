@@ -13,6 +13,7 @@ def synch():
   if is_good_new_blockchain(state.blockchain.chain,new_bc):
     state.blockchain.chain = new_bc
     return "true"
+  force_update_blockchain(state)
   return "false"
 
 
